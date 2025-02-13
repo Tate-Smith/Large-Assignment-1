@@ -12,14 +12,22 @@ public class Album {
 	private String artist;
 	private ArrayList<Song> songs;
 	
+	/*
+	 * @par title != null && artist != null
+	 */
 	public Album(String title, String artist) {
+		assert title != null && artist != null;
 		this.title = title;
 		this.artist = artist;
 		ArrayList<Song> songs = new ArrayList<>();
 	}
 	
+	/*
+	 * @par name != null
+	 */
 	public void addSong(String name) {
 		// so you can add songs to the album
+		assert name != null;
 		Song song = new Song(name, artist);
 		songs.add(song);
 	}

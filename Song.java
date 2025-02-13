@@ -26,6 +26,9 @@ public class Song {
 		isFavorite = true;
 	}
 	
+	/*
+	 * @par r > 0 && r < 6
+	 */
 	public void rate(int r) {
 		// makes sure r is between 1 to 5
 		assert r > 0 && r < 6;
