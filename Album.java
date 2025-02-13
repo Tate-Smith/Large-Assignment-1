@@ -32,6 +32,17 @@ public class Album {
 		songs.add(song);
 	}
 	
+	/*
+	 * @par name != null
+	 */
+	public void removeSong(String name) {
+		// removes every song called name from the album
+		assert name != null;
+		for (Song s : songs) {
+			if (s.getName().equals(name)) songs.remove(s);
+		}
+	}
+	
 	public ArrayList<Song> getSongs() {
 		// gets a list of all songs in the album with no escaping references
 		return new ArrayList<>(songs);
