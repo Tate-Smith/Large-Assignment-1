@@ -19,7 +19,7 @@ public class Album {
 		assert title != null && artist != null;
 		this.title = title;
 		this.artist = artist;
-		ArrayList<Song> songs = new ArrayList<>();
+		this.songs = new ArrayList<>();
 	}
 	
 	/*
@@ -28,8 +28,8 @@ public class Album {
 	public void addSong(String name) {
 		// so you can add songs to the album
 		assert name != null;
-		Song song = new Song(name, artist);
-		songs.add(song);
+		Song s = new Song(name, artist);
+		this.songs.add(s);
 	}
 	
 	/*

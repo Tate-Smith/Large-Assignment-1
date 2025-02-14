@@ -18,7 +18,7 @@ public class Song {
 		assert name != null && artist != null;
 		this.name = name;
 		this.artist = artist;
-		isFavorite = false;
+		this.isFavorite = false;
 	}
 	
 	public void favorite() {
@@ -47,6 +47,10 @@ public class Song {
 	
 	public boolean isFavorite() {
 		return isFavorite;
+	}
+	
+	public int getRating() {
+		return rating;
 	}
 	
 	@Override
