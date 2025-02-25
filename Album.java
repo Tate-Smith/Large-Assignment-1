@@ -13,7 +13,7 @@ public class Album {
 	private ArrayList<Song> songs;
 	
 	/*
-	 * @par title != null && artist != null
+	 * @pre title != null && artist != null
 	 */
 	public Album(String title, String artist) {
 		assert title != null && artist != null;
@@ -23,7 +23,7 @@ public class Album {
 	}
 	
 	/*
-	 * @par name != null
+	 * @pre name != null
 	 */
 	public void addSong(String name) {
 		// so you can add songs to the album
@@ -33,13 +33,13 @@ public class Album {
 	}
 	
 	/*
-	 * @par name != null
+	 * @pre name != null
 	 */
-	public void removeSong(String name) {
-		// removes every song called name from the album
+	public void removeSong(String name, String artist) {
+		// removes a song with the name and artist from the album
 		assert name != null;
 		for (Song s : songs) {
-			if (s.getName().equals(name)) songs.remove(s);
+			if (s.getName().equals(name) && s.getArtist().equals(artist)) songs.remove(s);
 		}
 	}
 	

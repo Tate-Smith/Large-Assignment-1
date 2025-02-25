@@ -1,6 +1,8 @@
 /*
  * Song class to store a songs name and artist
  * as well as if its a favorite song and its rating
+ * is an immutable type since all instance variables
+ * are private and no setters
  */
 
 package Model;
@@ -12,7 +14,7 @@ public class Song {
 	private int rating;
 	
 	/*
-	 * @par name != null && artist != null
+	 * @pre name != null && artist != null
 	 */
 	public Song(String name, String artist) {
 		assert name != null && artist != null;
@@ -27,7 +29,7 @@ public class Song {
 	}
 	
 	/*
-	 * @par r > 0 && r < 6
+	 * @pre r > 0 && r < 6
 	 */
 	public void rate(int r) {
 		// makes sure r is between 1 to 5
