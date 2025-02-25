@@ -10,7 +10,7 @@ class AlbumTest {
 	@Test
 	void testAddSong() {
 		Album a = new Album("Utopia", "Travis Scott");
-		a.addSong("SIRENS");
+		a.addSong("SIRENS", "Travis Scott");
 		ArrayList<Song> songs = a.getSongs();
 		Assertions.assertEquals(songs.get(0).getName(), "SIRENS");
 	}
@@ -18,9 +18,9 @@ class AlbumTest {
 	@Test
 	void testRemoveSong() {
 		Album a = new Album("Utopia", "Travis Scott");
-		a.addSong("SIRENS");
-		a.addSong("MY EYES");
-		a.removeSong("SIRENS");
+		a.addSong("SIRENS", "Travis Scott");
+		a.addSong("MY EYES", "Travis Scott");
+		a.removeSong("SIRENS", "Travis Scott");
 		ArrayList<Song> songs = a.getSongs();
 		Assertions.assertEquals(songs.get(0).getName(), "MY EYES");
 	}
@@ -28,9 +28,9 @@ class AlbumTest {
 	@Test
 	void testRemoveSongTwo() {
 		Album a = new Album("Utopia", "Travis Scott");
-		a.addSong("SIRENS");
-		a.addSong("MY EYES");
-		a.removeSong("TELEKINESIS");
+		a.addSong("SIRENS", "Travis Scott");
+		a.addSong("MY EYES", "Travis Scott");
+		a.removeSong("TELEKINESIS", "Travis Scott");
 		ArrayList<Song> songs = a.getSongs();
 		Assertions.assertEquals(songs.size(), 2);
 	}
@@ -50,8 +50,8 @@ class AlbumTest {
 	@Test
 	void testToString() {
 		Album a = new Album("Utopia", "Travis Scott");
-		a.addSong("SIRENS");
-		a.addSong("MY EYES");
+		a.addSong("SIRENS", "Travis Scott");
+		a.addSong("MY EYES", "Travis Scott");
 		Assertions.assertEquals(a.toString(), "Utopia, by: Travis Scott\nSIRENS\nMY EYES\n");
 	}
 
