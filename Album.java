@@ -1,6 +1,8 @@
 /*
- * album class that has a name and an artist
- * its made by, as well as a list of songs
+ * album class that takes a file name that holds
+ * all the album information and then populates the 
+ * songs list with all its songs. It is also an
+ * immutable type
  */
 
 package Model;
@@ -26,9 +28,8 @@ public class Album {
 		
 	}
 	
-	
-	/* @pre fileName != null 
-	 *
+	/* 
+	 * @Pre fileName != null 
 	 */
 	// use this method to scrape the files and make albums and add songs
 	private void loadAlbum(String fileName) throws FileNotFoundException {
@@ -44,10 +45,6 @@ public class Album {
 			this.songs.add(song);
 		}
 		myReader.close();
-		// open file
-		// populate album with songs form file
-		// make sure for every song in file make it into a song object
-		// add album to musicStore
 	}
 	
 	
