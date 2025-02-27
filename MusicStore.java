@@ -8,6 +8,7 @@
 
 package Model;
 
+
 import java.util.ArrayList;
 
 public class MusicStore {
@@ -19,13 +20,9 @@ public class MusicStore {
 		// pass every file name to loadAlbum to populate musicStore
 	}
 	
-	// use this method to scrape the files and make albums and add songs
-	private void loadAlbum(String fileName) {
-		// open file
-		// make an album object with title and artist from the file
-		// populate album with songs form file
-		// make sure for every song in file make it into a song object
-		// add album to musicStore
+	// add an album to the music store
+	public void addAlbum(Album album) {
+		musicStore.add(album);
 	}
 	
 	// search by song title
@@ -37,7 +34,7 @@ public class MusicStore {
 			for (Song s : album) {
 				// if name equals song add it to str
 				if (s.getName().equals(title)) {
-					str += s.toString() + ", " + a.getTitle() + "\n";
+					str += s.toString() + "," + a.getTitle() + "\n";
 				}
 			}
 		}
