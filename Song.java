@@ -14,7 +14,7 @@ public class Song {
 	private int rating;
 	
 	/*
-	 * @pre name != null && artist != null
+	  * @pre name != null && artist != null
 	 */
 	public Song(String name, String artist) {
 		assert name != null && artist != null;

@@ -5,6 +5,9 @@
 
 package Model;
 
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Album {
@@ -12,36 +15,41 @@ public class Album {
 	private String artist;
 	private ArrayList<Song> songs;
 	
-	/*
-	 * @pre title != null && artist != null
-	 */
-	public Album(String title, String artist) {
-		assert title != null && artist != null;
-		this.title = title;
-		this.artist = artist;
-		this.songs = new ArrayList<>();
-	}
 	
-	/*
-	 * @pre name != null
-	 */
-	public void addSong(String name) {
-		// so you can add songs to the album
-		assert name != null;
-		Song s = new Song(name, artist);
-		this.songs.add(s);
-	}
-	
-	/*
-	 * @pre name != null
-	 */
-	public void removeSong(String name, String artist) {
-		// removes a song with the name and artist from the album
-		assert name != null;
-		for (Song s : songs) {
-			if (s.getName().equals(name) && s.getArtist().equals(artist)) songs.remove(s);
+	public Album(String fileName) {
+		try {
+			loadAlbum(fileName);
+		} catch (FileNotFoundException e) {
+			System.out.println("File Not Found.");
+			e.printStackTrace();	
 		}
+		
 	}
+	
+	
+	/* @pre fileName != null 
+	 *
+	 */
+	// use this method to scrape the files and make albums and add songs
+	private void loadAlbum(String fileName) throws FileNotFoundException {
+		assert fileName != null;
+		File info = new File(fileName);
+		Scanner myReader = new Scanner(info);
+		String[] firstLine = myReader.nextLine().split(",");
+		this.title = firstLine[0];
+		this.artist = firstLine[1];
+		while (myReader.hasNextLine()) {
+			String[] albumContent = myReader.nextLine().split(",");
+			Song song = new Song(albumContent[0], albumContent[1]);
+			this.songs.add(song);
+		}
+		myReader.close();
+		// open file
+		// populate album with songs form file
+		// make sure for every song in file make it into a song object
+		// add album to musicStore
+	}
+	
 	
 	public ArrayList<Song> getSongs() {
 		// gets a list of all songs in the album with no escaping references

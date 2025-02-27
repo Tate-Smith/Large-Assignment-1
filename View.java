@@ -1,3 +1,4 @@
+package Model;
 /*
  * This is the view class that houses the main method.
  * The role of this class is to provide a UI for the 
@@ -5,7 +6,6 @@
  * and search for music using the previously created classes
  */
 
-package Model;
 
 public class View {
 

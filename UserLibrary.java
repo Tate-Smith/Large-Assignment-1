@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class UserLibrary {
 	private ArrayList<Song> songs;
 	private ArrayList<Album> albums;
-	private ArrayList<Album> playlists;
+	private ArrayList<PlayList> playlists;
 	
 	public UserLibrary() {
 		
@@ -29,8 +29,5 @@ public class UserLibrary {
 		albums.add(album);
 	}
 	
-	public void createPlaylist(String title, String name) {
-			Album playlist = new Album(title, name);
-			playlists.add(playlist);
-	}
+
 }
