@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class PlayList {
 	private String name;
 	private ArrayList<Song> playList;
-	
+
 	/*
 	 * @Pre name != null 
 	 */
@@ -17,11 +17,11 @@ public class PlayList {
 		this.name = name;
 		this.playList = new ArrayList<Song>();
 	}
-	
+
 	public void addSong(Song song) {
 		playList.add(song);
 	}
-	
+
 	/*
 	 * @Pre name != null && artist != null
 	 */
@@ -34,7 +34,7 @@ public class PlayList {
 			}
 		}
 	}
-	
+
 	/*
 	 * @Pre name != null && artist != null
 	 */
@@ -47,19 +47,19 @@ public class PlayList {
 		}
 		return null;
 	}
-	
+
 	public void setName(String newName) {
 		this.name = newName;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public ArrayList<Song> getSongs() {
 		return new ArrayList<>(playList);
 	}
-	
+
 	@Override
 	public String toString() {
 		// prints out the song title and artist followed by all it's songs

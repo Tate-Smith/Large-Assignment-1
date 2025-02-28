@@ -28,8 +28,9 @@ public class Album {
 		
 	}
 	
-	/* 
-	 * @Pre fileName != null 
+	
+	/* @Pre fileName != null 
+	 *
 	 */
 	// use this method to scrape the files and make albums and add songs
 	private void loadAlbum(String fileName) throws FileNotFoundException {
