@@ -94,7 +94,7 @@ public class View {
 	}
 	
 	public static void getPlaylistsFromLibrary() {
-		System.out.println(library.getAllPlaylists());
+		System.out.println(library.getAllPlayists());
 	}
 	
 	public static void createPlayList(String name) {
