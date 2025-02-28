@@ -56,6 +56,22 @@ public class UserLibrary {
 		}
 		return "Song not found";
 	}
+	
+	public String removeSongPlaylist(String name, String artist, String playlist) {
+		// if the song is already in songs then the song can be added to a playList
+		for (Song s : songs) {
+			if (s.getName().equals(name) && s.getArtist().equals(artist)) {
+				for (PlayList p : playlists) {
+					if (p.getName().equals(playlist)) {
+						p.removeSong(s);
+						return "Song Removed";
+					}
+				}
+				return "Playlist not found";
+			}
+		}
+		return "Song not found";
+	}
 
 	// search by song title
 		public String getSongTitle(String title) {

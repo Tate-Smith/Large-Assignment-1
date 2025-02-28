@@ -22,17 +22,8 @@ public class PlayList {
 		playList.add(song);
 	}
 
-	/*
-	 * @Pre name != null && artist != null
-	 */
-	public void removeSong(String name, String artist) {
-		// removes a song only if name and artist match song
-		assert name != null && artist != null;
-		for (Song s: playList) {
-			if (s.getName().equals(name) && s.getArtist().equals(artist)) {
-				playList.remove(s);
-			}
-		}
+	public void removeSong(Song song) {
+		playList.remove(song);
 	}
 
 	/*
