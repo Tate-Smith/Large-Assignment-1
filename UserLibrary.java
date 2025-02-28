@@ -8,8 +8,7 @@
  * own library.
  */
 package Model;
-import java.util.HashSet;
-import java.util.Set;
+
 import java.util.ArrayList;
 public class UserLibrary {
 	private ArrayList<Song> songs;
@@ -41,7 +40,6 @@ public class UserLibrary {
 			}
 		}
 	}
-
 
 	public String addSongPlaylist(String name, String artist, String playlist) {
 		// if the song is already in songs then the song can be added to a playList
@@ -137,7 +135,7 @@ public class UserLibrary {
 			return message;
 		}
 		
-		public  String getAllPlayists() {
+		public String getAllPlayists() {
 			String message = "Playlists:\n";
 			
 			for (PlayList p: playlists) {
@@ -146,6 +144,18 @@ public class UserLibrary {
 			
 			
 			return message;
+		}
+		
+		public String getAllSongs() {
+			String str = "Songs:\n";
+			for (Song s : songs) {
+				str += s.getName() + "\n";
+			}
+			return str;
+		}
+		
+		public ArrayList<Song> getSongs() {
+			return new ArrayList<Song>();
 		}
 		
 		public String getFavorites() {

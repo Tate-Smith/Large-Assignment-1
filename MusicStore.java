@@ -25,6 +25,28 @@ public class MusicStore {
 		musicStore.add(album);
 	}
 	
+	// get a song by name and artist from the music store
+	public Song getSong(String name, String artist) {
+		for (Album a : musicStore) {
+			for (Song s : a.getSongs()) {
+				if (s.getName().equals(name) && s.getArtist().equals(artist)) {
+					return s;
+				}
+			}
+		}
+		return null;
+	}
+	
+	// get a album by name and artist from the music store
+		public Album getAlbum(String name, String artist) {
+			for (Album a : musicStore) {
+				if (a.getTitle().equals(name) && a.getArtist().equals(artist)) {
+					return a;
+				}
+			}
+			return null;
+		}
+	
 	// search by song title
 	public String getSongTitle(String title) {
 		String str = "";
