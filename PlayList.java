@@ -54,7 +54,7 @@ public class PlayList {
 	@Override
 	public String toString() {
 		// prints out the song title and artist followed by all it's songs
-		String str = name + "\n";
+		String str = name + ":\n";
 		for (Song s : playList) {
 			str += s.getName();
 			str += "\n";
