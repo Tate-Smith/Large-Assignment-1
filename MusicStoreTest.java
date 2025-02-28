@@ -7,8 +7,9 @@ import org.junit.jupiter.api.Test;
 class MusicStoreTest {
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testMusicStoreConstructor() {
+		MusicStore store = new MusicStore();
+		assertEquals(store.getAllAlbums().size(), 15);
 	}
 
 }

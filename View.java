@@ -1,8 +1,4 @@
 package Model;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
 /*
  * This is the view class that houses the main method.
  * The role of this class is to provide a UI for the 
@@ -10,9 +6,8 @@ import java.util.Scanner;
  * and search for music using the previously created classes
  */
 
+
 public class View {
-	private static MusicStore store = new MusicStore();
-	private static UserLibrary library = new UserLibrary();
 	
 	
 	/* search for information from the music store
@@ -22,19 +17,20 @@ public class View {
 	● for an album by artist
 	*/
 
-	public static void getSongByTitle(String title) {
+	public void getSongByTitle(String title, MusicStore store) {
 		System.out.println(store.getSongTitle(title));
+		
 	}
 	
-	public static void getSongByArtist(String artist) {
+	public void getSongByArtist(String artist, MusicStore store) {
 		System.out.println(store.getSongArtist(artist));
 	}
 	
-	public static void getAlbumByTitle(String title) {
+	public void getAlbumByTitle(String title, MusicStore store) {
 		System.out.println(store.getAlbumTitle(title));
 	}
 	
-	public static void getAlbumByArtist(String artist) {
+	public void getAlbumByArtist(String artist, MusicStore store) {
 		System.out.println(store.getAlbumArtist(artist));
 	}
 	
@@ -45,26 +41,26 @@ public class View {
 
 	 */
 	
-	public static void getSongByArtistUserLibrary(String artist) {
-		System.out.println(library.getSongArtist(artist));		
+	public void getSongByArtistUserLibrary(String songName, String artist, UserLibrary library) {
+
+		
 	}
 	
-	public static void getSongByTitleUserLibrary(String title) {
-		System.out.println(library.getSongTitle(title));
+	public void getSongByTitleUserLibrary(String name, String artist, UserLibrary library) {
+
+		
 	}
 
-	public static void getAlbumByArtistUserLibrary(String artist) {
-		System.out.println(library.getAlbumArtist(artist));
+	public void getAlbumByArtistUserLibrary(String artist, UserLibrary library) {
 	}
 	
-	public static void getAlbumByTitleUserLibrary(String title) {
-		System.out.println(library.getAlbumTitle(title));
+	public void getAlbumByTitleUserLibrary(String title, UserLibrary library) {
 	}
 	
-	public static void getPlaylist(String name) {
+	public void getPlaylist(String name, UserLibrary library) {
 		System.out.println(library.getPlayList(name));
 	}
-	
+  
 	public static void addSongToLibrary(String song, String artist) {
 		Song s = store.getSong(song, artist);
 		if (s == null) System.out.println("Song not in store");
@@ -77,37 +73,29 @@ public class View {
 		else library.addAlbum(a);
 	}
 	
-	public static void getArtistsFromLibrary() {
+
+		
+	
+	
+	public void getArtistsFromLibrary(UserLibrary library) {
 		System.out.println(library.getAllArtists());
 	}
 	
-	public static void getAlbumsFromLibrary() {
+	public void getAlbumsFromLibrary(UserLibrary library) {
 		System.out.println(library.getAllAlbums());
 	}
 	
-	public static void getFavoritesFromLibrary() {
+	public void getFavoritesFromLibrary(UserLibrary library) {
 		System.out.println(library.getFavorites());
+		
 	}
 	
-	public static void getSongsFromLibrary() {
-		System.out.println(library.getAllSongs());
-	}
-	
-	public static void getPlaylistsFromLibrary() {
-		System.out.println(library.getAllPlayists());
-	}
-	
-	public static void createPlayList(String name) {
+	public void createPlayList(String name, UserLibrary library) {
 		library.makePlaylist(name);
 	}
 	
-	public static void rateASong(String song, int rating) {
-		ArrayList<Song> songs = library.getSongs();
-		for (Song s : songs) {
-			if (s.getName().equals(song)) {
-				s.rate(rating);
-			}
-		}
+	public void rateASong(Song song, int rating) {
+		
 	}
 	
 	public static void addSongPlaylist(String name, String artist, String playlist) {
@@ -303,4 +291,5 @@ public class View {
 		}
 		reader.close();
 	}
+
 }

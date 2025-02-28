@@ -151,7 +151,7 @@ public class UserLibrary {
 			return message;
 		}
 		
-		public String getAllPlayists() {
+		public String getAllPlaylists() {
 			String message = "Playlists:\n";
 			
 			for (PlayList p: playlists) {

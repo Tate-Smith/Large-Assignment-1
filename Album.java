@@ -40,9 +40,10 @@ public class Album {
 		String[] firstLine = myReader.nextLine().split(",");
 		this.title = firstLine[0];
 		this.artist = firstLine[1];
+		this.songs = new ArrayList<>();
 		while (myReader.hasNextLine()) {
 			String[] albumContent = myReader.nextLine().split(",");
-			Song song = new Song(albumContent[0], albumContent[1]);
+			Song song = new Song(albumContent[0], artist);
 			this.songs.add(song);
 		}
 		myReader.close();
@@ -65,11 +66,11 @@ public class Album {
 	@Override
 	public String toString() {
 		// prints out the song title and artist followed by all it's songs
-		String str = title + ", by: " + artist + "\n";
+		String str = title + ",by: " + artist + "\n";
 		for (Song s : songs) {
-			str += s.getName();
-			str += "\n";
+			str += s.getName() + "\n";
 		}
 		return str;
 	}
+	
 }

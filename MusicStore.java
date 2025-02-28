@@ -12,40 +12,30 @@ package Model;
 import java.util.ArrayList;
 
 public class MusicStore {
+	private String[] files = {"19_Adele.txt", "21_Adele.txt", 
+			"A Rush of Blood to the Head_Coldplay.txt", "Begin Again_Norah Jones.txt", "Boys & Girls_Alabama Shakes.txt",
+			"Coat of Many Colors_Dolly Parton.txt", "Cuando Los Angeles Lloran_Mana.txt", "Don't Mess With the Dragon_Ozomatli.txt",
+			"Fight for Your Mind_Ben Harper.txt","Mission Bell_Amos Lee.txt", "Old Ideas_Leonard Cohen.txt",
+			"Sigh No More_Mumford & Sons.txt", "Sons_The Heavy.txt", "Tapestry_Carol King.txt",
+			"Waking Up_OneRepublic.txt"};
 	private ArrayList<Album> musicStore;
 	
 	public MusicStore() {
-		// use the files to initialize the musicStore
-		ArrayList<Album> musicStore = new ArrayList<>();
-		// pass every file name to loadAlbum to populate musicStore
+	// use the files to initialize the musicStore
+	this.musicStore = new ArrayList<>();
+	for (String f: files) {
+		Album a = new Album(f);
+		musicStore.add(a);
+	}
+
 	}
 	
-	// add an album to the music store
-	public void addAlbum(Album album) {
-		musicStore.add(album);
+	// creates a copy of the list of all albums in the music store
+	public ArrayList<Album> getAllAlbums(){
+		ArrayList<Album> copy = new ArrayList<>(musicStore);
+		return copy;
 	}
-	
-	// get a song by name and artist from the music store
-	public Song getSong(String name, String artist) {
-		for (Album a : musicStore) {
-			for (Song s : a.getSongs()) {
-				if (s.getName().equals(name) && s.getArtist().equals(artist)) {
-					return s;
-				}
-			}
-		}
-		return null;
-	}
-	
-	// get a album by name and artist from the music store
-		public Album getAlbum(String name, String artist) {
-			for (Album a : musicStore) {
-				if (a.getTitle().equals(name) && a.getArtist().equals(artist)) {
-					return a;
-				}
-			}
-			return null;
-		}
+
 	
 	// search by song title
 	public String getSongTitle(String title) {
@@ -105,5 +95,13 @@ public class MusicStore {
 		// if it doesn't find any album by artist then return error message
 		if (str.length() == 0) return "Album Not Found";
 		return str;
+	}
+	
+	public static void main(String[] args) {
+		MusicStore store = new MusicStore();
+		ArrayList<Album> list = store.getAllAlbums();
+		for (Album a: list) {
+			System.out.println(a.toString());
+		}
 	}
 }
