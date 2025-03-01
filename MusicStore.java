@@ -35,26 +35,6 @@ public class MusicStore {
 		ArrayList<Album> copy = new ArrayList<>(musicStore);
 		return copy;
 	}
-	
-	public Song getSong(String name, String artist) {
-		for (Album a : musicStore) {
-			for (Song s : a.getSongs()) {
-				if (s.getName().equals(name) && s.getArtist().equals(artist)) {
-					return s;
-				}
-			}
-		}
-		return null;
-	}
-	
-	public Album getAlbum(String name, String artist) {
-		for (Album a : musicStore) {
-			if (a.getTitle().equals(name) && a.getArtist().equals(artist)) {
-				return a;
-			}
-		}
-		return null;
-	}
 
 	
 	// search by song title
@@ -115,5 +95,13 @@ public class MusicStore {
 		// if it doesn't find any album by artist then return error message
 		if (str.length() == 0) return "Album Not Found";
 		return str;
+	}
+	
+	public static void main(String[] args) {
+		MusicStore store = new MusicStore();
+		ArrayList<Album> list = store.getAllAlbums();
+		for (Album a: list) {
+			System.out.println(a.toString());
+		}
 	}
 }
