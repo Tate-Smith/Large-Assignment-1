@@ -1,5 +1,5 @@
 /*
- * Playlist class is for the user to create playlists
+p * Playlist class is for the user to create playlists
  * full of songs that are already in their library
  */
 package Model;
