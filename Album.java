@@ -28,22 +28,19 @@ public class Album {
 		
 	}
 	
-	
-	/* @Pre fileName != null 
-	 *
-	 */
 	// use this method to scrape the files and make albums and add songs
 	private void loadAlbum(String fileName) throws FileNotFoundException {
-		assert fileName != null;
 		File info = new File(fileName);
 		Scanner myReader = new Scanner(info);
+		// set the album title and artist from the first line
 		String[] firstLine = myReader.nextLine().split(",");
 		this.title = firstLine[0];
 		this.artist = firstLine[1];
 		this.songs = new ArrayList<>();
+		// get all the songs from the album file
 		while (myReader.hasNextLine()) {
-			String[] albumContent = myReader.nextLine().split(",");
-			Song song = new Song(albumContent[0], artist, title);
+			// create all the songs then add them to songs
+			Song song = new Song(myReader.nextLine(), artist, title);
 			this.songs.add(song);
 		}
 		myReader.close();
@@ -66,7 +63,7 @@ public class Album {
 	@Override
 	public String toString() {
 		// prints out the song title and artist followed by all it's songs
-		String str = title + ",by: " + artist + "\n";
+		String str = title + ", by: " + artist + "\n";
 		for (Song s : songs) {
 			str += s.getName() + "\n";
 		}
