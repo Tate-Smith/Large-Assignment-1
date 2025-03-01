@@ -10,6 +10,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 public class UserLibrary {
 	private ArrayList<Song> songs;
 	private ArrayList<Album> albums;
@@ -128,13 +129,20 @@ public class UserLibrary {
 		// creates a list of artists in the User Library 
 		public String getAllArtists() {
 			String message = "Artists:\n";
-			
+			HashSet<String> artists = new HashSet<String>();
 			for (Song s: songs) {
-				message = s.getArtist() + "\n";
+				// makes sure there are no duplicate artists
+				if (!artists.contains(s.getArtist())) {
+					message += s.getArtist() + "\n";
+					artists.add(s.getArtist());
+				}
 			}
 			
 			for (Album album : albums) {
-				message += album.getArtist() + "\n";
+				if (!artists.contains(album.getArtist())) {
+					message += album.getArtist() + "\n";
+					artists.add(album.getArtist());
+				}
 			}
 			
 			return message;
