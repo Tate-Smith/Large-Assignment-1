@@ -45,9 +45,9 @@ public class LibraryModel {
 	public String addSongPlaylist(String name, String artist, String playlist) {
 		// if the song is already in songs then the song can be added to a playList
 		for (Song s : songs) {
-			if (s.getName().equals(name) && s.getArtist().equals(artist)) {
+			if (s.getName().toLowerCase().equals(name) && s.getArtist().toLowerCase().equals(artist)) {
 				for (PlayList p : playlists) {
-					if (p.getName().equals(playlist)) {
+					if (p.getName().toLowerCase().equals(playlist)) {
 						p.addSong(s);
 						return "Song Added";
 					}
@@ -61,9 +61,9 @@ public class LibraryModel {
 	public String removeSongPlaylist(String name, String artist, String playlist) {
 		// if the song is already in songs then the song can be removed from a playList
 		for (Song s : songs) {
-			if (s.getName().equals(name) && s.getArtist().equals(artist)) {
+			if (s.getName().toLowerCase().equals(name) && s.getArtist().toLowerCase().equals(artist)) {
 				for (PlayList p : playlists) {
-					if (p.getName().equals(playlist)) {
+					if (p.getName().toLowerCase().equals(playlist)) {
 						p.removeSong(s);
 						return "Song Removed";
 					}
@@ -79,7 +79,7 @@ public class LibraryModel {
 		String str = "";
 		for (Song s : songs) {
 			// if name equals song add it to str
-			if (s.getName().equals(title)) {
+			if (s.getName().toLowerCase().toLowerCase().toLowerCase().equals(title)) {
 				str += s.toString() + "\n";
 			}
 		}
@@ -93,7 +93,7 @@ public class LibraryModel {
 		String str = "";
 		for (Song s : songs) {
 			// if artist equals song's artist add it to str
-			if (s.getArtist().equals(artist)) {
+			if (s.getArtist().toLowerCase().equals(artist)) {
 				str += s.toString() + "\n";
 			}
 		}
@@ -107,7 +107,7 @@ public class LibraryModel {
 		String str = "";
 		for (Album a : albums) {
 			// if album title equals title add album to str
-			if (a.getTitle().equals(title)) str += a.toString();
+			if (a.getTitle().toLowerCase().equals(title)) str += a.toString();
 		}
 		// if it doesn't find any album called title then return error message
 		if (str.length() == 0) return "Album Not Found";
@@ -119,7 +119,7 @@ public class LibraryModel {
 		String str = "";
 		for (Album a : albums) {
 		// if album's artist equals artist add album to str
-			if (a.getArtist().equals(artist)) str += a.toString();
+			if (a.getArtist().toLowerCase().equals(artist)) str += a.toString();
 		}
 		// if it doesn't find any album by artist then return error message
 		if (str.length() == 0) return "Album Not Found";
@@ -194,6 +194,7 @@ public class LibraryModel {
 				playListContents = p.toString();
 			}
 		}
+		if (playListContents.length() == 0) return "No Playlist found";
 		return playListContents;
 	}
 	
