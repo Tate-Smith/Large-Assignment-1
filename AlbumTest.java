@@ -17,7 +17,7 @@ class AlbumTest {
 	
 	@Test
 	void testgetSongs() {
-		Album a = new Album("19_Adele");
+		Album a = new Album("Adele_Test");
 		Assertions.assertEquals(a.getSongs().size(), 2);
 	}
 	
@@ -37,8 +37,8 @@ class AlbumTest {
 	
 	@Test 
 	void testToString() {
-		Album a = new Album("19_Adele");
-		Assertions.assertEquals(a.toString(), "19,by: Adele\nDaydreamer\nBest for Last\n");
+		Album a = new Album("Adele_Test");
+		Assertions.assertEquals(a.toString(), "100, by: Xavier\nCat\nDog\n");
 	}
 
 }
