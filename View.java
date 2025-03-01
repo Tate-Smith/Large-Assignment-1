@@ -1,7 +1,12 @@
-package Model;
+package view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Model.Album;
+import Model.MusicStore;
+import Model.Song;
+import Model.LibraryModel;
 
 /*
  * This is the view class that houses the main method.
@@ -12,7 +17,7 @@ import java.util.Scanner;
 
 public class View {
 	private static MusicStore store = new MusicStore();
-	private static UserLibrary library = new UserLibrary();
+	private static LibraryModel library = new LibraryModel();
 	
 	
 	/* search for information from the music store
@@ -104,7 +109,7 @@ public class View {
 	public static void rateASong(String song, int rating) {
 		ArrayList<Song> songs = library.getSongs();
 		for (Song s : songs) {
-			if (s.getName().equals(song)) {
+			if (s.getName().toLowerCase().equals(song)) {
 				s.rate(rating);
 			}
 		}
@@ -121,7 +126,7 @@ public class View {
 	public static void favoriteSong(String name, String artist) {
 		ArrayList<Song> songs = library.getSongs();
 		for (Song s: songs) {
-			if (s.getName().equals(name) && s.getArtist().equals(artist)) {
+			if (s.getName().toLowerCase().equals(name) && s.getArtist().toLowerCase().equals(artist)) {
 				s.favorite();
 			}
 		}
@@ -136,63 +141,67 @@ public class View {
 		// be able to search for songs in Music store
 		Scanner reader = new Scanner(System.in);
 		boolean quit = false;
+		// runs until the user wnats to wuit the program
 		while (!quit) {
 			System.out.println("Command:");
 			String input = reader.nextLine();
-			input.toLowerCase().trim();
+			input = input.toLowerCase().trim();
 			boolean back = false;
+			// determines whether to be in userLirary or music store
+			// uses "back" to leave it
 			switch (input) {
+			// while in userlibrary it is constantly looking for commands 
 				case "userlibrary":
 					while (!back) {
 						System.out.println("What would you like to do?");
 						input = reader.nextLine();
-						input.toLowerCase().trim();
+						input = input.toLowerCase().trim();
 						switch (input) {
-							case "get songs by artist":
-								System.out.println("Who is the Artist?");
+							case "get songs artist":
+								System.out.println("Artist?");
 								input = reader.nextLine();
 								input.toLowerCase().trim();
 								getSongByArtistUserLibrary(input);
 								break;
-							case "get songs by title":
-								System.out.println("What is the title?");
+							case "get songs title":
+								System.out.println("Title?");
 								input = reader.nextLine();
 								input.toLowerCase().trim();
 								getSongByTitleUserLibrary(input);
 								break;
-							case "get album by artist":
-								System.out.println("Who is the Artist?");
+							case "get album artist":
+								System.out.println("Artist?");
 								input = reader.nextLine();
 								input.toLowerCase().trim();
 								getAlbumByArtistUserLibrary(input);
 								break;
-							case "get album by title":
-								System.out.println("What is the title?");
+							case "get album title":
+								System.out.println("Title?");
 								input = reader.nextLine();
 								input.toLowerCase().trim();
 								getAlbumByTitleUserLibrary(input);
 								break;
 							case "get my playlists":
-								System.out.println("What is it called?");
+								System.out.println("Name?");
 								input = reader.nextLine();
 								input.toLowerCase().trim();
 								getPlaylist(input);
 								break;
 							case "add a song":
-								System.out.println("What is the song's name and artist?");
+								System.out.println("Artist and name?");
 								input = reader.nextLine();
-								String[] info = input.split(" ");
-								info[0].toLowerCase().trim();
-								info[1].toLowerCase().trim();
-								addSongToLibrary(info[0], info[1]);
+								String[] info = input.split(",");
+								info[0] = info[0].toLowerCase().trim();
+								info[1] = info[1].toLowerCase().trim();
+								addSongToLibrary(info[1], info[0]);
 								break;
 							case "add an album":
-								System.out.println("What is the album's name and artist?");
+								System.out.println("Artist and name?");
 								input = reader.nextLine();
-								String[] info1 = input.split(" ");
-								info1[0].toLowerCase().trim();
-								info1[1].toLowerCase().trim();
-								addAlbumToLibrary(info1[0], info1[1]);
+								String[] info1 = input.split(",");
+								info1[0] = info1[0].toLowerCase().trim();
+								info1[1] = info1[1].toLowerCase().trim();
+								addAlbumToLibrary(info1[1], info1[0]);
 								break;
 							case "get artists":
 								getArtistsFromLibrary();
@@ -209,79 +218,76 @@ public class View {
 							case "get playlists":
 								getPlaylistsFromLibrary();
 								break;
-							case "create a playlist":
-								System.out.println("What is it's name?");
+							case "create playlist":
+								System.out.println("Name?");
 								input = reader.nextLine();
 								input.toLowerCase().trim();
 								createPlayList(input);
 								break;
 							case "rate song":
-								System.out.println("What is the songs name, and what is your rating?");
+								System.out.println("Rating, and name?");
 								input = reader.nextLine();
-								String[] data = input.split(" ");
-								data[0].toLowerCase().trim();
-								data[1].toLowerCase().trim();
-								rateASong(data[0], Integer.valueOf(data[1]));
+								String[] data = input.split(",");
+								rateASong(data[1].toLowerCase().trim(), Integer.valueOf(data[0]));
 								break;
-							case "add a song to playlist":
-								System.out.println("What is the songs name, artist, and the playlist's name?");
+							case "add song to playlist":
+								System.out.println("Artist, playlist name and name?");
 								input = reader.nextLine();
-								String[] data1 = input.split(" ");
-								data1[0].toLowerCase().trim();
-								data1[1].toLowerCase().trim();
-								data1[2].toLowerCase().trim();
-								addSongPlaylist(data1[0], data1[1], data1[2]);
+								String[] data1 = input.split(",");
+								addSongPlaylist(data1[1].toLowerCase().trim(), data1[2].toLowerCase().trim(), data1[0].toLowerCase().trim());
 								break;
-							case "remove a song to playlist":
-								System.out.println("What is the songs name, artist, and the playlist's name?");
+							case "remove song from playlist":
+								System.out.println("Artist, playlist name and name?");
 								input = reader.nextLine();
-								String[] data2 = input.split(" ");
-								data2[0].toLowerCase().trim();
-								data2[1].toLowerCase().trim();
-								data2[2].toLowerCase().trim();
-								removeSongPlaylist(data2[0], data2[1], data2[2]);
+								String[] data2 = input.split(",");
+								data2[0] = data2[0].toLowerCase().trim();
+								data2[1] = data2[1].toLowerCase().trim();
+								data2[2] = data2[2].toLowerCase().trim();
+								removeSongPlaylist(data2[1], data2[2], data2[0]);
 								break;
-							case "favorite a song":
-								System.out.println("What is it's name and artist?");
+							case "favorite song":
+								System.out.println("Artist and name?");
 								input = reader.nextLine();
-								String[] data3 = input.split(" ");
-								data3[0].toLowerCase().trim();
-								data3[1].toLowerCase().trim();
-								favoriteSong(data3[0], data3[1]);
+								String[] data3 = input.split(",");
+								data3[0] = data3[0].toLowerCase().trim();
+								data3[1] = data3[1].toLowerCase().trim();
+								favoriteSong(data3[1], data3[0]);
+								break;
 							case "back":
 								back = true;
 								break;
 							default:
 								System.out.println("Invalid input");
 						}
-						break;
 					}
+					break;
+					// while in musicstore its constantly looking for commands
 				case "musicstore":
 					while (!back) {
 						System.out.println("What would you like to do?");
 						input = reader.nextLine();
-						input.toLowerCase().trim();
+						input = input.toLowerCase().trim();
 						switch (input) {
-							case "get song by title":
-								System.out.println("What is the title?");
+							case "get songs title":
+								System.out.println("Title?");
 								input = reader.nextLine();
 								input.toLowerCase().trim();
 								getSongByTitle(input);
 								break;
-							case "get a song by artist":
-								System.out.println("Who is the Artist?");
+							case "get songs artist":
+								System.out.println("Artist?");
 								input = reader.nextLine();
 								input.toLowerCase().trim();
 								getSongByArtist(input);
 								break;
-							case "get an album by title":
-								System.out.println("What is the title?");
+							case "get album title":
+								System.out.println("Title?");
 								input = reader.nextLine();
 								input.toLowerCase().trim();
 								getAlbumByTitle(input);
 								break;
-							case "get an album by artist":
-								System.out.println("Who is the Artist?");
+							case "get album artist":
+								System.out.println("Artist?");
 								input = reader.nextLine();
 								input.toLowerCase().trim();
 								getAlbumByArtist(input);
