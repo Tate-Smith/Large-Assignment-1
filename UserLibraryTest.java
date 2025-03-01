@@ -10,7 +10,7 @@ class UserLibraryTest {
 	void testBasicFunctionality() {
 		UserLibrary myLibrary = new UserLibrary();
 		Album newAlbum = new Album("19_Adele");
-		Song rollingDeep = new Song("Rolling Deep", "Adele");
+		Song rollingDeep = new Song("Rolling Deep", "Adele", "19");
 		myLibrary.makePlaylist("Fye");
 		myLibrary.addSong(rollingDeep);
 		myLibrary.addAlbum(newAlbum);
@@ -28,7 +28,7 @@ class UserLibraryTest {
 	void testAddSongsToPlayList() {
 		UserLibrary myLibrary = new UserLibrary();
 		Album newAlbum = new Album("19_Adele");
-		Song rollingDeep = new Song("Rolling Deep", "Adele");
+		Song rollingDeep = new Song("Rolling Deep", "Adele", "19");
 		myLibrary.makePlaylist("Fye");
 		myLibrary.addSong(rollingDeep);
 		myLibrary.addAlbum(newAlbum);
@@ -42,7 +42,7 @@ class UserLibraryTest {
 	void testGetByTitle() {
 		UserLibrary myLibrary = new UserLibrary();
 		Album newAlbum = new Album("19_Adele");
-		Song rollingDeep = new Song("Rolling Deep", "Adele");
+		Song rollingDeep = new Song("Rolling Deep", "Adele", "19");
 		myLibrary.makePlaylist("Fye");
 		myLibrary.addSong(rollingDeep);
 		myLibrary.addAlbum(newAlbum);
@@ -57,8 +57,8 @@ class UserLibraryTest {
 	void testGetByArtist() {
 		UserLibrary myLibrary = new UserLibrary();
 		Album newAlbum = new Album("19_Adele");
-		Song rollingDeep = new Song("Rolling Deep", "Adele");
-		Song nokia = new Song("NOKIA", "Adele");
+		Song rollingDeep = new Song("Rolling Deep", "Adele", "19");
+		Song nokia = new Song("NOKIA", "Adele", "19");
 		
 		myLibrary.makePlaylist("Fye");
 		myLibrary.addSong(rollingDeep);
