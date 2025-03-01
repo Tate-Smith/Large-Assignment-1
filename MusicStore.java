@@ -21,19 +21,17 @@ public class MusicStore {
 	private ArrayList<Album> musicStore;
 	
 	public MusicStore() {
-	// use the files to initialize the musicStore
-	this.musicStore = new ArrayList<>();
-	for (String f: files) {
-		Album a = new Album(f);
-		musicStore.add(a);
-	}
-
+		// use the files to initialize the musicStore
+		this.musicStore = new ArrayList<>();
+		for (String f: files) {
+			Album a = new Album(f);
+			musicStore.add(a);
+		}
 	}
 	
 	// creates a copy of the list of all albums in the music store
 	public ArrayList<Album> getAllAlbums(){
-		ArrayList<Album> copy = new ArrayList<>(musicStore);
-		return copy;
+		return new ArrayList<>(musicStore);
 	}
 	
 	public Song getSong(String name, String artist) {
@@ -65,9 +63,7 @@ public class MusicStore {
 			ArrayList<Song> album = a.getSongs();
 			for (Song s : album) {
 				// if name equals song add it to str
-				if (s.getName().equals(title)) {
-					str += s.toString() + "," + a.getTitle() + "\n";
-				}
+				if (s.getName().equals(title)) str += s.toString() + "\n";
 			}
 		}
 		// if it doesn't find any song called title then return error message
@@ -83,9 +79,7 @@ public class MusicStore {
 			ArrayList<Song> album = a.getSongs();
 			for (Song s : album) {
 				// if artist equals song's artist add it to str
-				if (s.getArtist().equals(artist)) {
-					str += s.toString() + ", " + a.getTitle() + "\n";
-				}
+				if (s.getArtist().equals(artist)) str += s.toString() + "\n";
 			}
 		}
 		// if it doesn't find any song by artist then return error message
