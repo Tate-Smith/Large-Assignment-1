@@ -43,7 +43,7 @@ public class Album {
 		this.songs = new ArrayList<>();
 		while (myReader.hasNextLine()) {
 			String[] albumContent = myReader.nextLine().split(",");
-			Song song = new Song(albumContent[0], artist);
+			Song song = new Song(albumContent[0], artist, title);
 			this.songs.add(song);
 		}
 		myReader.close();

@@ -128,19 +128,23 @@ public class UserLibrary {
 		
 		// creates a list of artists in the User Library 
 		public String getAllArtists() {
-			HashSet<String> artists = new HashSet<String>();
 			String message = "Artists:\n";
-			
+			HashSet<String> artists = new HashSet<String>();
 			for (Song s: songs) {
-				artists.add(s.getArtist());
-			}	
-			for (Album album : albums) {
-				artists.add(album.getArtist());
+				// makes sure there are no duplicate artists
+				if (!artists.contains(s.getArtist())) {
+					message += s.getArtist() + "\n";
+					artists.add(s.getArtist());
+				}
 			}
 			
-			for (String a: artists) {
-				message += a + "\n";
+			for (Album album : albums) {
+				if (!artists.contains(album.getArtist())) {
+					message += album.getArtist() + "\n";
+					artists.add(album.getArtist());
+				}
 			}
+			
 			return message;
 		}
 		
@@ -198,19 +202,5 @@ public class UserLibrary {
 			}
 			return playListContents;
 		}
-		
-		public static void main(String[] args) {
-			UserLibrary myLibrary = new UserLibrary();
-			Album newAlbum = new Album("19_Adele");
-			Song rollingDeep = new Song("Rolling Deep", "Adele");
-			Song nokia = new Song("NOKIA", "Drake");
-			Song pilot = new Song("Pilot", "Drake");
-			
-			myLibrary.addAlbum(newAlbum);
-			myLibrary.addSong(pilot);
-			myLibrary.addSong(nokia);
-			myLibrary.addSong(rollingDeep);
-			
-			System.out.println(myLibrary.getAllArtists());
-		}
+	
 }
