@@ -175,6 +175,14 @@ public class LibraryModel {
 	public ArrayList<Song> getSongs() {
 		return new ArrayList<Song>();
 	}
+	
+	public void favoriteSong(String name, String artist) {
+		for (Song s : songs) {
+			if (s.getName().equals(name) && s.getArtist().equals(artist)) {
+				s.favorite();
+			}
+		}
+	}
 		
 	public String getFavorites() {
 		String message = "Favorites:\n";

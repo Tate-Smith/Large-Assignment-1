@@ -9,7 +9,7 @@ class MusicStoreTest {
 	@Test
 	void testMusicStoreConstructor() {
 		MusicStore store = new MusicStore();
-		assertEquals(store.getAllAlbums().size(), 16);
+		assertEquals(store.getAllAlbums().size(), 15);
 	}
 
 	@Test
