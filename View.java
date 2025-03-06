@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Model.Album;
 import Model.MusicStore;
 import Model.Song;
+import Model.UserDataBase;
 import Model.LibraryModel;
 
 /*
@@ -18,6 +19,7 @@ import Model.LibraryModel;
 public class View {
 	private static MusicStore store = new MusicStore();
 	private static LibraryModel library = new LibraryModel();
+	private static UserDataBase database = new UserDataBase();
 	
 	
 	/* search for information from the music store
@@ -142,6 +144,7 @@ public class View {
 	}
 	
 	public static void findUser(String username, String password) {
+		// find user in the UserDataBase
 		
 	}
 	
