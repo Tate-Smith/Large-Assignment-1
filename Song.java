@@ -14,6 +14,7 @@ public class Song {
 	private int rating;
 	private String album;
 	private int numPlays;
+	private String genre;
 	
 	/*
 	  * @pre name != null && artist != null && album != null
@@ -38,6 +39,14 @@ public class Song {
 	
 	public int getPlays() {
 		return numPlays;
+	}
+	
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	
+	public String getGenre() {
+		return this.genre;
 	}
 	
 	/*

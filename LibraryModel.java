@@ -12,15 +12,25 @@ package Model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+
 public class LibraryModel {
 	private HashMap<String, Song> songs;
 	private HashMap<String, Album> albums;
 	private HashMap<String, PlayList> playlists;
+	private ArrayList<Song> recentSongs;
 
 	public LibraryModel() {
 		songs = new HashMap<String, Song>();
 		albums = new HashMap<String, Album>();
 		playlists = new HashMap<String, PlayList>();
+		recentSongs = new ArrayList<Song>();
+		this.makePlaylist("Favorites");
+		this.makePlaylist("Recents");
+		this.makePlaylist("Frequents");
+	}
+	
+	public void updateFrequents() {
+		
 	}
 
 	public void makePlaylist(String name) {
@@ -166,10 +176,34 @@ public class LibraryModel {
 		return new ArrayList<Song>();
 	}
 	
+	public void play(String name, String artist) {
+		// when a song is played it increments the numPlay count, and adds it to the top 10 most recent plays
+		for (Song s : songs.values()) {
+			if (s.getName().toLowerCase().equals(name) && s.getAlbum().equals(artist) ) {
+				s.play();
+				// if recent songs is already 10 songs remove the last song
+				if (recentSongs.size() == 10) recentSongs.remove(0);
+				// add new song to most recents
+				recentSongs.add(s);
+			}
+		}
+		// get the recents playlist
+		PlayList p = playlists.get("Recents");
+		// empty it
+		p.clearPlaylist();
+		// repopulate it with all the recnt songs
+		for (int i = 0; i < recentSongs.size(); i++) {
+			p.addSong(recentSongs.get(i));
+		}
+	}
+	
 	public void favoriteSong(String name, String artist) {
 		for (Song s : songs.values()) {
 			if (s.getName().equals(name) && s.getArtist().equals(artist)) {
 				s.favorite();
+				// add song to favorites playList imedeatly
+				PlayList p = playlists.get("Favorites");
+				p.addSong(s);
 			}
 		}
 	}
@@ -180,6 +214,36 @@ public class LibraryModel {
 			if (s.isFavorite()) {
 				message += s.toString();
 			}
+		}
+		return message;
+	}
+	
+	public String getFavoritesPlaylist() {
+		// gets all the songs that are favorites
+		String message = "10 Favorite Song:\n";
+		PlayList p = playlists.get("Favorites");
+		for (Song s : p.getSongs()) {
+			message += s.toString();
+		}
+		return message;
+	}
+	
+	public String getRecents() {
+		// gets the 10 most recently played songs
+		String message = "Recent Songs:\n";
+		PlayList p = playlists.get("Recents");
+		for (Song s : p.getSongs()) {
+			message += s.toString();
+		}
+		return message;
+	}
+	
+	public String getFrequents() {
+		// gets the 10 most frequently played songs
+		String message = "Frequent Songs:\n";
+		PlayList p = playlists.get("Frequents");
+		for (Song s : p.getSongs()) {
+			message += s.toString();
 		}
 		return message;
 	}
