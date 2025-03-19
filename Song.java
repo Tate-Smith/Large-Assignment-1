@@ -13,6 +13,7 @@ public class Song {
 	private boolean isFavorite;
 	private int rating;
 	private String album;
+	private int numPlays;
 	
 	/*
 	  * @pre name != null && artist != null && album != null
@@ -23,11 +24,20 @@ public class Song {
 		this.artist = artist.toLowerCase();
 		this.isFavorite = false;
 		this.album = album.toLowerCase();
+		this.numPlays = 0;
 	}
 	
 	public void favorite() {
 		// puts the book as a favorite
 		isFavorite = true;
+	}
+	
+	public void play() {
+		numPlays++;
+	}
+	
+	public int getPlays() {
+		return numPlays;
 	}
 	
 	/*
