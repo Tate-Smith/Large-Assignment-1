@@ -20,69 +20,33 @@
 
 package Model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Scanner;
+import org.json.*;
+import java.io.*;
+
+
 
 // class full of users, can use crud database to store in files
 public class UserDataBase {
-	private HashMap<String, User> userDatabase = new HashMap<String, User>();;
-	// a file to save all user data in, its static so the database is the same across all instances
-	public static final File FILE = new File("User-Database");
+	
+	private JSONObject database;
 	
 	public UserDataBase() {
-		try {
-			// everytime an instance is created the information previously put in the file is read into
-			// a hashmap and saved
-			Scanner reader = new Scanner(FILE);
-			while (reader.hasNext()) {
-				if (reader.nextLine() != "") {
-					String[] data = reader.nextLine().split(":");
-					userDatabase.put(data[0].trim(), data[1]);
-				}
-			}
-			reader.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		JSONObject database = new JSONObject();
 	}
 	
-	private void update() {
-		// everytime data is changed in the hashmap it saves it to the file so the changes are permanent
-		try {
-			FileWriter writer = new FileWriter(FILE);
-			for (String key : userDatabase.keySet()) {
-				writer.write(key + ":" + userDatabase.get(key) + "\n");
-			}
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	/* This method add user to the JSONObject "database" */
+	public void addUser(JSONObject user) {
+	String userName = user.get("username").toString().toLowerCase();
+	if (database.keySet().contains(userName)) {
+		System.out.println("User Already in Database");
+	} else {
+		database.put(userName, user);
+	}	
 	}
 	
-	public void addUser(User user) {
-		// adds user to database
-		userDatabase.put(user.getUsername(), user);
-		update();
-	}
 	
-	public User getUser(String username) {
-		// returns the data
-		return userDatabase.get(username);
-	}
 	
-	public void clear() {
-		// clears the file
-		userDatabase.clear();
-		update();
-	}
 	
-	public void removeUser(String username) {
-		// removes said user
-		userDatabase.remove(username);
-		update();
-	}
+	
+	
 }
