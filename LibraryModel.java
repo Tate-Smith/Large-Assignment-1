@@ -9,29 +9,59 @@
  */
 package Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
+import java.lang.reflect.Array;
+
+
 
 public class LibraryModel {
 	private HashMap<String, Song> songs;
 	private HashMap<String, Album> albums;
 	private HashMap<String, PlayList> playlists;
 	private ArrayList<Song> recentSongs;
+	private LinkedList<Song> recents;
+	private ArrayList<Song> frequents;
 
 	public LibraryModel() {
 		songs = new HashMap<String, Song>();
 		albums = new HashMap<String, Album>();
 		playlists = new HashMap<String, PlayList>();
 		recentSongs = new ArrayList<Song>();
+		recents = new LinkedList<Song>();
+		frequents = new ArrayList<Song>();
+	
+		
 		this.makePlaylist("Favorites");
 		this.makePlaylist("Recents");
 		this.makePlaylist("Frequents");
 	}
 	
-	public void updateFrequents() {
-		
+	/* This method uses the sortedSet interface, more specifically tree sets to sort all of the songs
+	 * by number of plays in descending order*/
+	private void updateFrequents() {
+		SortedSet <Song> highestPlays = 
+				new TreeSet<>(Comparator.comparingInt(song -> song.getPlays()));
+		// add all songs to treeSet
+		for (Song s: songs.values()) {
+			highestPlays.add(s);
+		}	
+		// convert treeSet to arrayList to be able to index the treeSet
+		List <Song> allFreqSongs = new ArrayList<Song>(highestPlays);
+		// removes all songs with 0 plays
+		for (Song s: allFreqSongs) {
+			if (s.getPlays() == 0) {
+				allFreqSongs.remove(s);
+			}
+		}
+		// size of list is greater than 10 then only set frequents to the 10 most frequently played songs
+		if (allFreqSongs.size() > 10) {
+			frequents = (ArrayList<Song>) allFreqSongs.subList((allFreqSongs.size() - 10), allFreqSongs.size());
+		} else {
+			frequents = (ArrayList<Song>) allFreqSongs; // otherwise just set frequents to the songs that have been played
+		}
 	}
+	
+	
 
 	public void makePlaylist(String name) {
 		PlayList playlist = new PlayList(name);
@@ -196,6 +226,29 @@ public class LibraryModel {
 			p.addSong(recentSongs.get(i));
 		}
 	}
+
+/*updated version of the play function utilizing linked lists which makes the code 
+ * more readable*/
+	public void playV2(String name, String artist) {
+		// when a song is played it increments the numPlay count, and adds it to the top 10 most recent plays
+		for (Song s : songs.values()) {
+			if (s.getName().toLowerCase().equals(name) && s.getAlbum().equals(artist) ) {
+				s.play();
+				// if a song has already been played recently, remove it from the list
+				if (recents.contains(s)) {
+					recents.remove(s);
+				}
+				// add song to the first in the list
+				recents.addFirst(s);
+				// if recent songs is already at 10 songs remove the last song
+				if (recents.size() > 10) recents.removeLast();
+			}
+		}
+		
+	}
+	
+	
+	
 	
 	public void favoriteSong(String name, String artist) {
 		for (Song s : songs.values()) {
@@ -239,10 +292,10 @@ public class LibraryModel {
 	}
 	
 	public String getFrequents() {
-		// gets the 10 most frequently played songs
+		updateFrequents();
+		// gets the 10 most frequently played songs from most played to least played
 		String message = "Frequent Songs:\n";
-		PlayList p = playlists.get("Frequents");
-		for (Song s : p.getSongs()) {
+		for (Song s : frequents.reversed()) {
 			message += s.toString();
 		}
 		return message;
@@ -259,4 +312,30 @@ public class LibraryModel {
 		}
 		return playListContents;
 	}	
+	
+	
+	public String getSortedBySongTitle() {
+		StringBuilder message = new StringBuilder();
+		List<Song> allSongs = new ArrayList<>(songs.values());
+		// sort by Song name using lambda expressions
+		Collections.sort(allSongs, (s1, s2) -> s1.getName().compareTo(s2.getName()));
+		for (Song s: allSongs) {
+			message.append(s.toString() + "\n");
+		}
+		
+		return message.toString();	
+	}
+	
+	public String getSortedBySongArtist() {
+		StringBuilder message = new StringBuilder();
+		List<Song> allSongs = new ArrayList<>(songs.values());
+		Collections.sort(allSongs, (s1, s2) -> s1.getArtist().compareTo(s2.getArtist()));
+		for (Song s: allSongs) {
+			message.append(s.toString() + "\n");
+		}
+		
+		return message.toString();	
+	}
+	
+
 }
