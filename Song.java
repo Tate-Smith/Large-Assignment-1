@@ -19,13 +19,14 @@ public class Song {
 	/*
 	  * @pre name != null && artist != null && album != null
 	 */
-	public Song(String name, String artist, String album) {
+	public Song(String name, String artist, String album, String genre) {
 		assert name != null && artist != null && album != null;
 		this.name = name.toLowerCase();
 		this.artist = artist.toLowerCase();
 		this.isFavorite = false;
 		this.album = album.toLowerCase();
 		this.numPlays = 0;
+		this.genre = genre;
 	}
 	
 	public void favorite() {
@@ -39,10 +40,6 @@ public class Song {
 	
 	public int getPlays() {
 		return numPlays;
-	}
-	
-	public void setGenre(String genre) {
-		this.genre = genre;
 	}
 	
 	public String getGenre() {
