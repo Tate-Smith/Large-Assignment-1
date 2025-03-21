@@ -16,6 +16,7 @@ public class Album {
 	private String title;
 	private String artist;
 	private ArrayList<Song> songs;
+	private String genre;
 	
 	
 	public Album(String fileName) {
@@ -36,11 +37,12 @@ public class Album {
 		String[] firstLine = myReader.nextLine().split(",");
 		this.title = firstLine[0];
 		this.artist = firstLine[1];
+		this.genre = firstLine[2];
 		this.songs = new ArrayList<>();
 		// get all the songs from the album file
 		while (myReader.hasNextLine()) {
 			// create all the songs then add them to songs
-			Song song = new Song(myReader.nextLine(), artist, title);
+			Song song = new Song(myReader.nextLine(), artist, title, genre);
 			this.songs.add(song);
 		}
 		myReader.close();

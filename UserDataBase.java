@@ -23,30 +23,51 @@ package Model;
 import org.json.*;
 import java.io.*;
 
-
-
 // class full of users, can use crud database to store in files
 public class UserDataBase {
 	
 	private JSONObject database;
+	private static final File FILE = new File("database.json");
 	
 	public UserDataBase() {
-		JSONObject database = new JSONObject();
+		this.database = new JSONObject();
+	}
+	
+	public void update() {
+		try (FileWriter writer = new FileWriter(FILE)) {
+			for (String key : database.keySet()) {
+				writer.write(database.toString());
+			}
+			writer.flush();
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/* This method add user to the JSONObject "database" */
-	public void addUser(JSONObject user) {
-	String userName = user.get("username").toString().toLowerCase();
-	if (database.keySet().contains(userName)) {
-		System.out.println("User Already in Database");
-	} else {
-		database.put(userName, user);
-	}	
+	public void addUser(User user) {
+		String userName = user.getUsername();
+		if (database.keySet().contains(userName)) {
+			System.out.println("User Already in Database");
+		} 
+		else {
+			database.put(userName, user);
+		}	
+		update();
 	}
 	
+	public User getUser(String userName) {
+		return (User)database.get(userName);
+	}
 	
+	public User removeUser(String userName) {
+		return (User) database.remove(userName);
+	}
 	
-	
-	
-	
+	public void clearDatabase() {
+		database.clear();
+		update();
+	}
 }
