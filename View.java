@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Model.Album;
 import Model.MusicStore;
 import Model.Song;
+import Model.User;
 import Model.UserDataBase;
 import Model.LibraryModel;
 
@@ -18,7 +19,7 @@ import Model.LibraryModel;
 
 public class View {
 	private static MusicStore store = new MusicStore();
-	private static LibraryModel library = new LibraryModel();
+	private static LibraryModel library;
 	private static UserDataBase database = new UserDataBase();
 	
 	
@@ -150,7 +151,7 @@ public class View {
 	
 	// if statement for 
 	// switch statement
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// have a while loop that is always true as long as quit is false
 		// be able to switch between userLibrary and Music store
 		// be able to add songs to library, search for songs
@@ -167,7 +168,13 @@ public class View {
 				String username = reader.nextLine();
 				System.out.println("Password: ");
 				String password = reader.nextLine();
-				findUser(username, password);
+				User u = database.getUser(username);
+				while (!u.getPassword().equals(password)) {
+					System.out.println("Password: ");
+					password = reader.nextLine();
+					System.out.println("Wrong Password, Try Again");
+				}
+				library = u.getUserLibrary();
 				break;
 			case "create account":
 				System.out.println("Create Username: ");
@@ -177,8 +184,11 @@ public class View {
 				String newPassword = reader.nextLine();
 				// authenticate the password works
 				// create an user object that has that accounts userLibrary and info
+				User newUser = new User(user, newPassword);
+				database.addUser(newUser);
 				// add that to a database of files for all users
 				// encrypt the password
+				library = newUser.getUserLibrary();
 				break;
 			default:
 				System.out.println("Invalid Input");

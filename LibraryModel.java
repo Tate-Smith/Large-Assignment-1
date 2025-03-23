@@ -1,4 +1,5 @@
 /*
+ /*
  * This class allows the user to add songs or albums from the
  * musicStore to their own library, create their own playlist,
  * rate or mark songs as favorite, search their library for
@@ -10,9 +11,6 @@
 package Model;
 
 import java.util.*;
-import java.lang.reflect.Array;
-
-
 
 public class LibraryModel {
 	private HashMap<String, Song> songs;
@@ -247,9 +245,6 @@ public class LibraryModel {
 		
 	}
 	
-	
-	
-	
 	public void favoriteSong(String name, String artist) {
 		for (Song s : songs.values()) {
 			if (s.getName().equals(name) && s.getArtist().equals(artist)) {
@@ -313,7 +308,6 @@ public class LibraryModel {
 		return playListContents;
 	}	
 	
-	
 	public String getSortedBySongTitle() {
 		StringBuilder message = new StringBuilder();
 		List<Song> allSongs = new ArrayList<>(songs.values());
@@ -336,6 +330,4 @@ public class LibraryModel {
 		
 		return message.toString();	
 	}
-	
-
 }
