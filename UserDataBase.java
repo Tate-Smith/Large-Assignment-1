@@ -62,12 +62,8 @@ public class UserDataBase {
 		return (User)database.get(userName);
 	}
 	
-	public User removeUser(String userName) {
-		return (User) database.remove(userName);
-	}
-	
-	public void clearDatabase() {
-		database.clear();
+	public void removeUser(String userName) {
+		database.remove(userName);
 		update();
 	}
 }
