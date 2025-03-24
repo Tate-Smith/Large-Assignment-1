@@ -54,6 +54,17 @@ public class MusicStore {
 		return null;
 	}
 	
+	public Album getSongAlbum(String name, String artist) {
+		for (Album a : musicStore.values()) {
+			for (Song s : a.getSongs()) {
+				if (s.getName().toLowerCase().equals(name) && s.getArtist().toLowerCase().equals(artist)) {
+					return a;
+				}
+			}
+		}
+		return null;
+	}
+	
 	// search by song title
 	public String getSongTitle(String title) {
 		String str = "";

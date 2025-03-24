@@ -80,7 +80,7 @@ public class Song {
 	@Override
 	public String toString() {
 		// prints name of the song and who its by
-		String str = name + ", by: " + artist + ", " + album;
+		String str = name + ", by: " + artist + ", " + album + ", " + genre;
 		return str;
 	}
 }

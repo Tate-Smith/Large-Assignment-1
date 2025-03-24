@@ -22,67 +22,23 @@ public class View {
 	private static LibraryModel library;
 	private static UserDataBase database = new UserDataBase();
 	
-	
-	/* search for information from the music store
-	● for a song by title
-	● for a song by artist
-	● for an album by title
-	● for an album by artist
-	*/
-
-	public static void getSongByTitle(String title) {
-		System.out.println(store.getSongTitle(title));
-	}
-	
-	public static void getSongByArtist(String artist) {
-		System.out.println(store.getSongArtist(artist));
-	}
-	
-	public static void getAlbumByTitle(String title) {
-		System.out.println(store.getAlbumTitle(title));
-	}
-	
-	public static void getAlbumByArtist(String artist) {
-		System.out.println(store.getAlbumArtist(artist));
-	}
-	
 	/*
 	 * ● should cover all the search cases listed for the music store
 	   ● should also be able to search for a playlist by name – the result should print the songs
 	   (title and artist)
-
 	 */
 	
-	public static void getSongByArtistUserLibrary(String artist) {
-		System.out.println(library.getSongArtist(artist));		
-	}
-	
-	public static void getSongByTitleUserLibrary(String title) {
-		System.out.println(library.getSongTitle(title));
-	}
-
-	public static void getAlbumByArtistUserLibrary(String artist) {
-		System.out.println(library.getAlbumArtist(artist));
-	}
-	
-	public static void getAlbumByTitleUserLibrary(String title) {
-		System.out.println(library.getAlbumTitle(title));
-	}
-	
-	public static void getPlaylist(String name) {
-		System.out.println(library.getPlayList(name));
-	}
-	
-	public static void addSongToLibrary(String song, String artist) {
+	private static void addSongToLibrary(String song, String artist) {
 		Song s = store.getSong(song, artist);
+		Album a = store.getSongAlbum(song, artist);
 		if (s == null) System.out.println("Song not in store");
 		else {
-			library.addSong(s);
+			library.addSong(s, a);
 			System.out.println("Added to library!");
 		}
 	}
 	
-	public static void addAlbumToLibrary(String album, String artist) {
+	private static void addAlbumToLibrary(String album, String artist) {
 		Album a = store.getAlbum(album, artist);
 		if (a == null) System.out.println("Album not in store");
 		else {
@@ -91,32 +47,13 @@ public class View {
 		}
 	}
 	
-	public static void getArtistsFromLibrary() {
-		System.out.println(library.getAllArtists());
-	}
-	
-	public static void getAlbumsFromLibrary() {
-		System.out.println(library.getAllAlbums());
-	}
-	
-	public static void getFavoritesFromLibrary() {
-		System.out.println(library.getFavorites());
-	}
-	
-	public static void getSongsFromLibrary() {
-		System.out.println(library.getAllSongs());
-	}
-	
-	public static void getPlaylistsFromLibrary() {
-		System.out.println(library.getAllPlaylists());
-	}
-	
-	public static void createPlayList(String name) {
+	private static void createPlayList(String name) {
 		library.makePlaylist(name);
 		System.out.println("Playlist Created!");
 	}
 	
-	public static void rateASong(String song, int rating) {
+	private
+	static void rateASong(String song, int rating) {
 		ArrayList<Song> songs = library.getSongs();
 		for (Song s : songs) {
 			if (s.getName().toLowerCase().equals(song)) {
@@ -144,10 +81,6 @@ public class View {
 		System.out.println(name + " is now a Favorite!");
 	}
 	
-	public static void findUser(String username, String password) {
-		// find user in the UserDataBase
-		
-	}
 	
 	// if statement for 
 	// switch statement
@@ -209,27 +142,51 @@ public class View {
 							case "get songs artist":
 								System.out.println("Artist?");
 								input = reader.nextLine();
-								getSongByArtistUserLibrary(input.toLowerCase().trim());
+								System.out.println(library.getSongArtist(input.toLowerCase().trim()));	
 								break;
 							case "get songs title":
 								System.out.println("Title?");
 								input = reader.nextLine();
-								getSongByTitleUserLibrary(input.toLowerCase().trim());
+								System.out.println(library.getSongTitle(input.toLowerCase().trim()));
 								break;
+							case "get song":
+								// get a very sepcific song by title and artist
+								String[] data4;
+								while (true) {
+									System.out.println("Title and Arist? (Split by comma)");
+									input = reader.nextLine();
+									data4 = input.split(",");
+									if (data4.length == 2) break;
+									else {
+										System.out.println("Invalid Input");
+									}
+								}
+								System.out.println(library.getSong(data4[0].toLowerCase().trim(), data4[1].toLowerCase().trim()));
+								System.out.println("Get Songs Album Info?");
+								input = reader.nextLine();
+								if (input.toLowerCase().trim().equals("yes")) {
+									Album a = store.getSongAlbum(data4[0].toLowerCase().trim(), data4[1].toLowerCase().trim());
+									System.out.println(a);
+								}
 							case "get album artist":
 								System.out.println("Artist?");
 								input = reader.nextLine();
-								getAlbumByArtistUserLibrary(input.toLowerCase().trim());
+								System.out.println(library.getAlbumArtist(input.toLowerCase().trim()));
+								break;
+							case "get songs by genre":
+								System.out.println("Genre:");
+								input = reader.nextLine();
+								System.out.println(library.getSongGenre(input.toLowerCase().trim()));
 								break;
 							case "get album title":
 								System.out.println("Title?");
 								input = reader.nextLine();
-								getAlbumByTitleUserLibrary(input.toLowerCase().trim());
+								System.out.println(library.getAlbumTitle(input.toLowerCase().trim()));
 								break;
 							case "get my playlists":
 								System.out.println("Name?");
 								input = reader.nextLine();
-								getPlaylist(input.toLowerCase().trim());
+								System.out.println(library.getPlayList(input.toLowerCase().trim()));
 								break;
 							case "add a song":
 								// loop to make sure input is correctly split by comma
@@ -260,19 +217,19 @@ public class View {
 								addAlbumToLibrary(info1[1].toLowerCase().trim(), info1[0].toLowerCase().trim());
 								break;
 							case "get artists":
-								getArtistsFromLibrary();
+								System.out.println(library.getAllArtists());
 								break;
 							case "get albums":
-								getAlbumsFromLibrary();
+								System.out.println(library.getAllAlbums());
 								break;
 							case "get songs":
-								getSongsFromLibrary();
+								System.out.println(library.getAllSongs());
 								break;
 							case "get favorites":
-								getFavoritesFromLibrary();
+								System.out.println(library.getFavorites());
 								break;
 							case "get playlists":
-								getPlaylistsFromLibrary();
+								System.out.println(library.getAllPlaylists());
 								break;
 							case "create playlist":
 								System.out.println("Name?");
@@ -353,22 +310,22 @@ public class View {
 							case "get songs title":
 								System.out.println("Title?");
 								input = reader.nextLine();
-								getSongByTitle(input.toLowerCase().trim());
+								System.out.println(store.getSongTitle(input.toLowerCase().trim()));
 								break;
 							case "get songs artist":
 								System.out.println("Artist?");
 								input = reader.nextLine();
-								getSongByArtist(input.toLowerCase().trim());
+								System.out.println(store.getSongArtist(input.toLowerCase().trim()));
 								break;
 							case "get album title":
 								System.out.println("Title?");
 								input = reader.nextLine();
-								getAlbumByTitle(input.toLowerCase().trim());
+								System.out.println(store.getAlbumTitle(input.toLowerCase().trim()));
 								break;
 							case "get album artist":
 								System.out.println("Artist?");
 								input = reader.nextLine();
-								getAlbumByArtist(input.toLowerCase().trim());
+								System.out.println(store.getAlbumArtist(input.toLowerCase().trim()));
 								break;
 							case "back":
 								back = true;
