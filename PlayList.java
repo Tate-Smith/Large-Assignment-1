@@ -22,8 +22,8 @@ public class PlayList {
 		playList.add(song);
 	}
 
-	public void removeSong(Song song) {
-		playList.remove(song);
+	public Boolean removeSong(Song song) {
+		return playList.remove(song);
 	}
 
 	/*

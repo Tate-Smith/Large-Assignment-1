@@ -182,7 +182,7 @@ public class View {
 								input = reader.nextLine();
 								System.out.println(library.getAlbumTitle(input.toLowerCase().trim()));
 								break;
-							case "get dplaylist":
+							case "get playlist":
 								System.out.println("Name?");
 								input = reader.nextLine();
 								System.out.println(library.getPlayList(input.toLowerCase().trim()));
@@ -290,6 +290,66 @@ public class View {
 									}
 								}
 								favoriteSong(data3[0].toLowerCase().trim(), data3[1].toLowerCase().trim());
+								break;
+							case "play":
+								String[] play_song;
+								while (true) {
+									System.out.println("Song name and Artist? (Split by commas)");
+									input = reader.nextLine();
+									play_song = input.split(",");
+									if (play_song.length == 2) break;
+									else {
+										System.out.println("Invalid Input");
+									}
+								}
+								library.play(play_song[0].toLowerCase().trim(), play_song[1].toLowerCase().trim());
+								break;
+							case "get recents":
+								System.out.println(library.getRecents());
+								break;
+							case "get frequents":
+								System.out.println(library.getFrequents());
+								break;
+							case "get sorted by title":
+								System.out.println(library.getSortedBySongTitle());
+								break;
+							case "get sorted by artist":
+								System.out.println(library.getSortedBySongArtist());
+								break;
+							case "get sorted by rating":
+								System.out.println(library.getSortedbyRating());
+								break;
+							case "remove from library":
+								// both album or song
+								String[] remove_info;
+								while (true) {
+									System.out.println("Name, Artist, Album or Song? (split by commas");
+									input = reader.nextLine();
+									remove_info = input.split(",");
+									if (remove_info.length == 3) break;
+									else {
+										System.out.println("Invalid Input");
+									}
+								}
+								if (remove_info[2].toLowerCase().trim().equals("song")) {
+									System.out.println(library.removeFromLibrary(remove_info[0].toLowerCase().trim(), remove_info[1].toLowerCase().trim()));
+								}
+								else {
+									System.out.println(library.removeAlbumFromLibrary(remove_info[0].toLowerCase().trim(), remove_info[1].toLowerCase().trim()));
+								}
+								break;
+							case "shuffle songs":
+								// both playlist and all songs
+								System.out.println("Playlist or All Songs?");
+								input = reader.nextLine();
+								if (input.toLowerCase().trim().equals("all")) {
+									library.shuffleSongs();
+								}
+								else {
+									System.out.println("Name?");
+									input = reader.nextLine();
+									library.shuffleSongs(input.toLowerCase().trim());
+								}
 								break;
 							case "back":
 								back = true;
