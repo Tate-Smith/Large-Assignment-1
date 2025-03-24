@@ -14,7 +14,7 @@ public class PlayList {
 	 * @Pre name != null 
 	 */
 	public PlayList(String name) {
-		this.name = name.toLowerCase();
+		this.name = name;
 		this.playList = new ArrayList<Song>();
 	}
 

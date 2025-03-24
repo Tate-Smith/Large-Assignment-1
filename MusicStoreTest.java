@@ -9,7 +9,7 @@ class MusicStoreTest {
 	@Test
 	void testMusicStoreConstructor() {
 		MusicStore store = new MusicStore();
-		assertEquals(store.getAllAlbums().size(), 15);
+		assertEquals(store.getAllAlbums().size(), 16);
 	}
 
 	@Test
@@ -24,5 +24,15 @@ class MusicStoreTest {
 		MusicStore store = new MusicStore();
 		assertEquals(store.getSongArtist("Xavier"), "Cat, by: Xavier, 100\nDog, by: Xavier, 100\n");
 		assertEquals(store.getAlbumArtist("100"), "Album Not Found");
+	}
+	
+	@Test
+	void testGet() {
+		MusicStore store = new MusicStore();
+		Song coldShoulder = new Song("Cold Shoulder", "Adele", "19", "Pop");
+		assertTrue(store.getSong("Cold Shoulder", "Adele").toString().equals(coldShoulder.toString()) );
+		
+		Album newAlbum = new Album("19_Adele.txt");
+		assertTrue(store.getAlbum("19", "Adele").toString().equals(newAlbum.toString()));
 	}
 }

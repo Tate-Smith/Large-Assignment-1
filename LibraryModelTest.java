@@ -11,7 +11,7 @@ class LibraryModelTest {
 	@Test 
 	void testAddSongPlaylist() {
 		myLibrary.makePlaylist("My Playlist");
-		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA");
+		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA", "RAP");
 		myLibrary.addSong(s);
 		String str = myLibrary.addSongPlaylist("SIRENS", "Travis Scott", "My Playlist");
 		Assertions.assertEquals(str, "Song Added");
@@ -20,7 +20,7 @@ class LibraryModelTest {
 	@Test
 	void testRemoveSongPlaylist() {
 		myLibrary.makePlaylist("My Playlist");
-		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA");
+		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA", "Rap");
 		myLibrary.addSong(s);
 		String str = myLibrary.addSongPlaylist("SIRENS", "Travis Scott", "My Playlist");
 		String string = myLibrary.removeSongPlaylist("SIRENS", "Travis Scott", "My Playlist");
@@ -29,7 +29,7 @@ class LibraryModelTest {
 	
 	@Test
 	void testGetSongTitle() {
-		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA");
+		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA", "Rap");
 		myLibrary.addSong(s);
 		String str = s.toString();
 		Assertions.assertEquals(myLibrary.getSongTitle("SIRENS"), str + "\n");
@@ -37,7 +37,7 @@ class LibraryModelTest {
 	
 	@Test
 	void testGetSongArtist() {
-		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA");
+		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA", "Rap");
 		myLibrary.addSong(s);
 		Assertions.assertEquals(myLibrary.getSongArtist("Travis Scott"), "SIRENS, by: Travis Scott, UTOPIA\n");
 	}
@@ -62,9 +62,9 @@ class LibraryModelTest {
 	void testGetAllArtists() {
 		Album a = new Album("21_Adele.txt");
 		myLibrary.addAlbum(a);
-		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA");
+		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA", "Rap");
 		myLibrary.addSong(s);
-		Assertions.assertEquals(myLibrary.getAllArtists(), "Artists:\nAdele\nTravis Scott\n");
+		Assertions.assertEquals(myLibrary.getAllArtists(), "Artists:\nTravis Scott\nAdele\n");
 	}
 	
 	@Test 
@@ -78,12 +78,12 @@ class LibraryModelTest {
 	@Test 
 	void testGetAllPlaylists() {
 		myLibrary.makePlaylist("My Playlist");
-		Assertions.assertEquals(myLibrary.getAllPlaylists(), "Playlists:\nMy Playlist:\n");
+		Assertions.assertEquals(myLibrary.getAllPlaylists(), "Playlists:\nMy Playlist:\nFavorites:\n");
 	}
 	
 	@Test 
 	void testGetAllSongs() {
-		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA");
+		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA", "Rap");
 		myLibrary.addSong(s);
 		String str = s.toString();
 		Assertions.assertEquals(myLibrary.getAllSongs(), "Songs:\n" + str);
@@ -97,7 +97,7 @@ class LibraryModelTest {
 	
 	@Test
 	void testGetFavorites() {
-		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA");
+		Song s = new Song("SIRENS", "Travis Scott", "UTOPIA", "Rap");
 		myLibrary.addSong(s);
 		s.favorite();
 		String str = s.toString();
@@ -109,4 +109,5 @@ class LibraryModelTest {
 		myLibrary.makePlaylist("My Playlist");
 		Assertions.assertEquals(myLibrary.getPlayList("My Playlist"), "My Playlist:\n");
 	}
+	
 }

@@ -32,8 +32,7 @@ public class LibraryModel {
 	
 		
 		this.makePlaylist("Favorites");
-		this.makePlaylist("Recents");
-		this.makePlaylist("Frequents");
+		
 	}
 	
 	
@@ -60,8 +59,9 @@ public class LibraryModel {
 		playlists.put(name, playlist);
 	}
 
-	public void addSong(Song song) {
+	public void addSong(Song song, Album a) {
 		songs.put(song.getName().toLowerCase(), song);
+		albums.put(a.getTitle().toLowerCase(), a);
 	}
 
 	public void addAlbum(Album album) {
@@ -238,7 +238,7 @@ public class LibraryModel {
 				if (recents.size() > 10) recents.removeLast();
 			}
 		}
-		
+		updateFrequents();
 	}
 	
 	public void favoriteSong(String name, String artist) {
@@ -360,5 +360,37 @@ public class LibraryModel {
 		}
 		Collections.shuffle(allSongs);
 		return allSongs;
-	}	
+	}
+	
+	private int countGenre(String genre) {
+		int count = 0;
+		for (Song s: songs.values()) {
+			if (s.getGenre().equalsIgnoreCase(genre)) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	
+	
+	public void createGenrePlaylist() {
+		Set<String> genreList = new HashSet<>();
+		for (Song s: songs.values()) {
+			String songGenre = s.getGenre().toLowerCase();
+			if (!genreList.contains(songGenre)) {
+				genreList.add(songGenre);
+				if (countGenre(songGenre) >= 10) {
+					makePlaylist(songGenre);
+					PlayList genrePlaylist = playlists.get(songGenre);
+					for (Song i: songs.values()) {
+						if (i.getGenre().equalsIgnoreCase(songGenre)){
+							genrePlaylist.addSong(i);
+						}
+					}
+				}
+			}
+		}	
+	}
+	
 }

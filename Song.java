@@ -21,10 +21,10 @@ public class Song {
 	 */
 	public Song(String name, String artist, String album, String genre) {
 		assert name != null && artist != null && album != null;
-		this.name = name.toLowerCase();
-		this.artist = artist.toLowerCase();
+		this.name = name;
+		this.artist = artist;
 		this.isFavorite = false;
-		this.album = album.toLowerCase();
+		this.album = album;
 		this.numPlays = 0;
 		this.genre = genre;
 	}

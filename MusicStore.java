@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class MusicStore {
-	private String[] files = {"19_Adele.txt", "21_Adele.txt", 
+	private String[] files = {"Junit_Test","19_Adele.txt", "21_Adele.txt", 
 			"A Rush of Blood to the Head_Coldplay.txt", "Begin Again_Norah Jones.txt", "Boys & Girls_Alabama Shakes.txt",
 			"Coat of Many Colors_Dolly Parton.txt", "Cuando Los Angeles Lloran_Mana.txt", "Don't Mess With the Dragon_Ozomatli.txt",
 			"Fight for Your Mind_Ben Harper.txt","Mission Bell_Amos Lee.txt", "Old Ideas_Leonard Cohen.txt",
