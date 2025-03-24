@@ -18,7 +18,6 @@ public class Album {
 	private ArrayList<Song> songs;
 	private String genre;
 	
-	
 	public Album(String fileName) {
 		try {
 			loadAlbum(fileName);
@@ -26,7 +25,14 @@ public class Album {
 			System.out.println("File Not Found.");
 			e.printStackTrace();	
 		}
-		
+	}
+	
+	public Album(Album album) {
+		// copy album
+		this.title = album.title;
+		this.artist = album.artist;
+		this.genre = album.genre;
+		this.songs = new ArrayList<Song>();
 	}
 	
 	// use this method to scrape the files and make albums and add songs
@@ -48,7 +54,6 @@ public class Album {
 		myReader.close();
 	}
 	
-	
 	public ArrayList<Song> getSongs() {
 		// gets a list of all songs in the album with no escaping references
 		return new ArrayList<>(songs);
@@ -62,6 +67,10 @@ public class Album {
 		return artist;
 	}
 	
+	public void addSong(Song s) {
+		songs.add(s);
+	}
+	
 	@Override
 	public String toString() {
 		// prints out the song title and artist followed by all it's songs
@@ -71,5 +80,4 @@ public class Album {
 		}
 		return str;
 	}
-	
 }

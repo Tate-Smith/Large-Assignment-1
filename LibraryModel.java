@@ -59,15 +59,21 @@ public class LibraryModel {
 		}
 	}
 	
-	
-
 	public void makePlaylist(String name) {
 		PlayList playlist = new PlayList(name);
 		playlists.put(name, playlist);
 	}
 
-	public void addSong(Song song) {
+	public void addSong(Song song, Album album) {
 		songs.put(song.getName(), song);
+		if (!albums.containsKey(album.getTitle())) {
+			Album a = new Album(album);
+			a.addSong(song);
+		}
+		else {
+			Album a = albums.get(album.getTitle());
+			a.addSong(song);
+		}
 	}
 
 	public void addAlbum(Album album) {
@@ -107,6 +113,16 @@ public class LibraryModel {
 		}
 		return "Song not found";
 	}
+	
+	// get a specific song by title and artist
+	public String getSong(String title, String artist) {
+		if (!songs.containsKey(title)) return "Song Not Found";
+		for (String key : songs.keySet()) {
+			Song s = songs.get(key);
+			if (key.equals(title) && s.getArtist().equals(artist)) return s.toString();
+		}
+		return "Song Not Found";
+	}
 
 	// search by song title
 	public String getSongTitle(String title) {
@@ -128,6 +144,20 @@ public class LibraryModel {
 		for (Song s : songs.values()) {
 			// if artist equals song's artist add it to str
 			if (s.getArtist().toLowerCase().equals(artist)) {
+				str += s.toString() + "\n";
+			}
+		}
+		// if it doesn't find any song by artist then return error message
+		if (str.length() == 0) return "Song Not Found";
+		return str;
+	}
+	
+	// search for song by genre
+	public String getSongGenre(String genre) {
+		String str = "";
+		for (Song s : songs.values()) {
+			// if artist equals song's genre add it to str
+			if (s.getGenre().toLowerCase().equals(genre)) {
 				str += s.toString() + "\n";
 			}
 		}
@@ -203,31 +233,10 @@ public class LibraryModel {
 	public ArrayList<Song> getSongs() {
 		return new ArrayList<Song>();
 	}
-	
-	public void play(String name, String artist) {
-		// when a song is played it increments the numPlay count, and adds it to the top 10 most recent plays
-		for (Song s : songs.values()) {
-			if (s.getName().toLowerCase().equals(name) && s.getAlbum().equals(artist) ) {
-				s.play();
-				// if recent songs is already 10 songs remove the last song
-				if (recentSongs.size() == 10) recentSongs.remove(0);
-				// add new song to most recents
-				recentSongs.add(s);
-			}
-		}
-		// get the recents playlist
-		PlayList p = playlists.get("Recents");
-		// empty it
-		p.clearPlaylist();
-		// repopulate it with all the recnt songs
-		for (int i = 0; i < recentSongs.size(); i++) {
-			p.addSong(recentSongs.get(i));
-		}
-	}
 
 /*updated version of the play function utilizing linked lists which makes the code 
  * more readable*/
-	public void playV2(String name, String artist) {
+	public void play(String name, String artist) {
 		// when a song is played it increments the numPlay count, and adds it to the top 10 most recent plays
 		for (Song s : songs.values()) {
 			if (s.getName().toLowerCase().equals(name) && s.getAlbum().equals(artist) ) {
@@ -242,7 +251,6 @@ public class LibraryModel {
 				if (recents.size() > 10) recents.removeLast();
 			}
 		}
-		
 	}
 	
 	public void favoriteSong(String name, String artist) {
@@ -262,16 +270,6 @@ public class LibraryModel {
 			if (s.isFavorite()) {
 				message += s.toString();
 			}
-		}
-		return message;
-	}
-	
-	public String getFavoritesPlaylist() {
-		// gets all the songs that are favorites
-		String message = "10 Favorite Song:\n";
-		PlayList p = playlists.get("Favorites");
-		for (Song s : p.getSongs()) {
-			message += s.toString();
 		}
 		return message;
 	}
