@@ -375,7 +375,7 @@ public class LibraryModel {
 			if (!genreList.contains(songGenre)) {
 				genreList.add(songGenre);
 				if (countGenre(songGenre) >= 10) {
-					makePlaylist(songGenre);
+					if (!playlists.containsKey(songGenre)) makePlaylist(songGenre);
 					PlayList genrePlaylist = playlists.get(songGenre);
 					for (Song i: songs.values()) {
 						if (i.getGenre().equals(songGenre)){
