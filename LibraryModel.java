@@ -32,6 +32,8 @@ public class LibraryModel {
 	
 		
 		this.makePlaylist("Favorites");
+		this.makePlaylist("Recents");
+		this.makePlaylist("Frequents");
 	}
 	
 	
@@ -52,10 +54,6 @@ public class LibraryModel {
 			frequents = (ArrayList<Song>) allFreqSongs; // otherwise just set frequents to the songs that have been played
 		}
 	}
-	
-	
-	
-	
 
 	public void makePlaylist(String name) {
 		PlayList playlist = new PlayList(name);
@@ -105,6 +103,16 @@ public class LibraryModel {
 		return "Song not found";
 	}
 
+	// get a specific song by title and artist
+	public String getSong(String title, String artist) {
+		if (!songs.containsKey(title)) return "Song Not Found";
+		for (String key : songs.keySet()) {
+			Song s = songs.get(key);
+			if (key.equals(title) && s.getArtist().equals(artist)) return s.toString();
+		}
+		return "Song Not Found";
+	}
+
 	// search by song title
 	public String getSongTitle(String title) {
 		// if it doesn't find any song called title then return error message
@@ -125,6 +133,20 @@ public class LibraryModel {
 		for (Song s : songs.values()) {
 			// if artist equals song's artist add it to str
 			if (s.getArtist().toLowerCase().equals(artist.toLowerCase())) {
+				str += s.toString() + "\n";
+			}
+		}
+		// if it doesn't find any song by artist then return error message
+		if (str.length() == 0) return "Song Not Found";
+		return str;
+	}
+
+	// search for song by genre
+	public String getSongGenre(String genre) {
+		String str = "";
+		for (Song s : songs.values()) {
+			// if artist equals song's genre add it to str
+			if (s.getGenre().toLowerCase().equals(genre)) {
 				str += s.toString() + "\n";
 			}
 		}
@@ -201,29 +223,7 @@ public class LibraryModel {
 		return new ArrayList<Song>();
 	}
 	
-	
 	public void play(String name, String artist) {
-		// when a song is played it increments the numPlay count, and adds it to the top 10 most recent plays
-		for (Song s : songs.values()) {
-			if (s.getName().toLowerCase().equals(name) && s.getAlbum().equals(artist) ) {
-				s.play();
-				// if recent songs is already 10 songs remove the last song
-				if (recentSongs.size() == 10) recentSongs.remove(0);
-				// add new song to most recents
-				recentSongs.add(s);
-			}
-		}
-		// get the recents playlist
-		PlayList p = playlists.get("Recents");
-		// empty it
-		p.clearPlaylist();
-		// repopulate it with all the recnt songs
-		for (int i = 0; i < recentSongs.size(); i++) {
-			p.addSong(recentSongs.get(i));
-		}
-	}
-	
-	public void playV2(String name, String artist) {
 		// when a song is played it increments the numPlay count, and adds it to the top 10 most recent plays
 		for (Song s : songs.values()) {
 			if (s.getName().toLowerCase().equals(name) && s.getAlbum().equals(artist) ) {
@@ -241,13 +241,6 @@ public class LibraryModel {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	public void favoriteSong(String name, String artist) {
 		for (Song s : songs.values()) {
 			if (s.getName().equals(name.toLowerCase()) && s.getArtist().equals(artist.toLowerCase())) {
@@ -259,8 +252,6 @@ public class LibraryModel {
 		}
 	}
 	
-	
-	
 	public String getFavorites() {
 		String message = "Favorites:\n";
 		for (Song s : songs.values()) {
@@ -270,8 +261,6 @@ public class LibraryModel {
 		}
 		return message;
 	}
-	
-	
 	
 	public String getRecents() {
 		// gets the 10 most recently played songs
@@ -293,9 +282,6 @@ public class LibraryModel {
 		}
 		return message;
 	}
-	
-	
-
 		
 	// find a playlist in a string of playlists
 	public String getPlayList(String name) {
@@ -363,16 +349,9 @@ public class LibraryModel {
 		}
 	}
 	
-	
-	public String getAlbumInfo(Song song) {
-		
-		return song.toString();
-	}
-	
-	
 	public void shuffleSongs(ArrayList<Song> playList) {
 		Collections.shuffle(playList);
-		}
+	}
 	
 	public ArrayList<Song> shuffleSongs(HashMap<String, Song> songs) {
 		ArrayList<Song> allSongs = new ArrayList<>();
@@ -381,10 +360,5 @@ public class LibraryModel {
 		}
 		Collections.shuffle(allSongs);
 		return allSongs;
-	}
-	
-	
-	
-	
-	
+	}	
 }
