@@ -10,8 +10,8 @@ class PlayListTest {
 	@Test
 	void testBasicPlayList() {
 		PlayList myPlaylist = new PlayList("Fye");
-		Song rollingDeep = new Song("Rolling Deep", "Adele", "19");
-		Song nine = new Song("19", "Adele", "19");
+		Song rollingDeep = new Song("Rolling Deep", "Adele", "19", "Pop");
+		Song nine = new Song("19", "Adele", "19", "Pop");
 		
 		assertEquals(myPlaylist.getName(), "Fye");
 		myPlaylist.addSong(rollingDeep);
@@ -24,8 +24,8 @@ class PlayListTest {
 	@Test 
 	void testGetSong() {
 		PlayList myPlaylist = new PlayList("Fye");
-		Song rollingDeep = new Song("Rolling Deep", "Adele", "19");
-		Song nine = new Song("19", "Adele", "19");
+		Song rollingDeep = new Song("Rolling Deep", "Adele", "19", "Pop");
+		Song nine = new Song("19", "Adele", "19", "Pop");
 		
 		myPlaylist.addSong(rollingDeep);
 		myPlaylist.addSong(nine);
@@ -36,8 +36,8 @@ class PlayListTest {
 	@Test
 	void testToString() {
 		PlayList myPlaylist = new PlayList("Fye");
-		Song rollingDeep = new Song("Rolling Deep", "Adele", "19");
-		Song nine = new Song("19", "Adele", "19");
+		Song rollingDeep = new Song("Rolling Deep", "Adele", "19", "Pop");
+		Song nine = new Song("19", "Adele", "19", "Pop");
 		
 		myPlaylist.addSong(rollingDeep);
 		myPlaylist.addSong(nine);
@@ -47,6 +47,22 @@ class PlayListTest {
 		myPlaylist.setName("Dog");
 		
 		assertEquals(myPlaylist.toString(), "Dog:\nRolling Deep\n19\n");
+		
+	}
+	
+	@Test
+	void clearPlaylist() {
+		
+		PlayList myPlaylist = new PlayList("Fye");
+		Song rollingDeep = new Song("Rolling Deep", "Adele", "19", "Pop");
+		Song nine = new Song("19", "Adele", "19", "Pop");
+		
+		myPlaylist.addSong(rollingDeep);
+		myPlaylist.addSong(nine);
+		
+		myPlaylist.clearPlaylist();
+		
+		assertEquals(myPlaylist.toString(), "Fye:\n");
 		
 	}
 }
