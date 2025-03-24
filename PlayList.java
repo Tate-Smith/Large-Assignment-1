@@ -22,8 +22,8 @@ public class PlayList {
 		playList.add(song);
 	}
 
-	public Boolean removeSong(Song song) {
-		return playList.remove(song);
+	public void removeSong(Song song) {
+		playList.remove(song);
 	}
 
 	/*
@@ -49,10 +49,6 @@ public class PlayList {
 
 	public ArrayList<Song> getSongs() {
 		return new ArrayList<>(playList);
-	}
-	
-	public void clearPlaylist() {
-		this.playList.clear();
 	}
 
 	@Override
