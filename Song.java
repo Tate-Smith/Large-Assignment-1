@@ -13,21 +13,37 @@ public class Song {
 	private boolean isFavorite;
 	private int rating;
 	private String album;
+	private int numPlays;
+	private String genre;
 	
 	/*
 	  * @pre name != null && artist != null && album != null
 	 */
-	public Song(String name, String artist, String album) {
+	public Song(String name, String artist, String album, String genre) {
 		assert name != null && artist != null && album != null;
 		this.name = name;
 		this.artist = artist;
 		this.isFavorite = false;
 		this.album = album;
+		this.numPlays = 0;
+		this.genre = genre;
 	}
 	
 	public void favorite() {
 		// puts the book as a favorite
 		isFavorite = true;
+	}
+	
+	public void play() {
+		numPlays++;
+	}
+	
+	public int getPlays() {
+		return numPlays;
+	}
+	
+	public String getGenre() {
+		return this.genre.toLowerCase();
 	}
 	
 	/*
@@ -42,15 +58,15 @@ public class Song {
 	}
 	
 	public String getAlbum() {
-		return album;
+		return album.toLowerCase();
 	}
 	
 	public String getName() {
-		return name;
+		return name.toLowerCase();
 	}
 	
 	public String getArtist() {
-		return artist;
+		return artist.toLowerCase();
 	}
 	
 	public boolean isFavorite() {
@@ -64,7 +80,7 @@ public class Song {
 	@Override
 	public String toString() {
 		// prints name of the song and who its by
-		String str = name + ", by: " + artist + ", " + album;
+		String str = name + ", by: " + artist + ", " + album + ", " + genre + "\n";
 		return str;
 	}
 }
