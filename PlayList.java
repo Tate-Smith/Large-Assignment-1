@@ -1,5 +1,5 @@
 /*
-p * Playlist class is for the user to create playlists
+ * Playlist class is for the user to create playlists
  * full of songs that are already in their library
  */
 package Model;
@@ -32,7 +32,7 @@ public class PlayList {
 	public Song getSong(String name, String artist) {
 		assert name != null && artist != null;
 		for (Song s: playList) {
-			if (s.getName().equals(name) && s.getArtist().equals(artist)) {
+			if (s.getName().equalsIgnoreCase(name) && s.getArtist().equalsIgnoreCase(artist)) {
 				return s;
 			}
 		}
