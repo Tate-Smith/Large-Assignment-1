@@ -5,6 +5,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.*;
 
 public class PlayList {
 	private String name;
@@ -14,7 +15,7 @@ public class PlayList {
 	 * @Pre name != null 
 	 */
 	public PlayList(String name) {
-		this.name = name;
+		this.name = name.toLowerCase();
 		this.playList = new ArrayList<Song>();
 	}
 
@@ -50,7 +51,10 @@ public class PlayList {
 	public ArrayList<Song> getSongs() {
 		return new ArrayList<>(playList);
 	}
-
+	
+	public void shuffle() {
+		Collections.shuffle(playList);
+	}
 	@Override
 	public String toString() {
 		// prints out the song title and artist followed by all it's songs
