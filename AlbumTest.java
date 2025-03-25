@@ -12,12 +12,13 @@ class AlbumTest {
 	void testLoadAlbum() {
 		Album a = new Album("19_Adele.txt");
 		ArrayList<Song> songs = a.getSongs();
-		Assertions.assertEquals(songs.get(0).getName(), "Daydreamer");
+		Assertions.assertEquals(songs.get(0).getName(), "daydreamer");
+		Album b = new Album("Fire");
 	}
 	
 	@Test
-	void testgetSongs() {
-		Album a = new Album("Adele_Test");
+	void testGetSongs() {
+		Album a = new Album("Junit_Test");
 		Assertions.assertEquals(a.getSongs().size(), 2);
 	}
 	
@@ -26,7 +27,7 @@ class AlbumTest {
 	@Test
 	void testArtist() {
 		Album a = new Album("19_Adele.txt");
-		Assertions.assertEquals(a.getArtist(), "Adele");
+		Assertions.assertEquals(a.getArtist(), "adele");
 	}
 	
 	@Test
@@ -37,8 +38,20 @@ class AlbumTest {
 	
 	@Test 
 	void testToString() {
-		Album a = new Album("Adele_Test");
-		Assertions.assertEquals(a.toString(), "100, by: Xavier\nCat\nDog\n");
+		Album a = new Album("Junit_Test");
+		Assertions.assertEquals(a.toString(), "100, by: Xavier\ncat\ndog\n");
+	}
+	
+	@Test 
+	void testCopyAlbum() {
+		Album a = new Album("Junit_Test");
+		Album copy = new Album(a);
+		Song copySong = new Song("Cat", "Xavier", "100", "Pop");
+		Song copySong1 = new Song("Dog", "Xavier", "100", "Pop");
+		copy.addSong(copySong);
+		copy.addSong(copySong1);
+		
+		Assertions.assertEquals(a.toString(), copy.toString());
 	}
 
 }
