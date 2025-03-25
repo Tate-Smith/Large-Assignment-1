@@ -2,7 +2,9 @@ package Model;
 
 import org.json.*;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
@@ -10,16 +12,20 @@ import java.util.Arrays;
 // as well as the users specific userLibrary object
 public class User {
 	
-	
 	private String username;
 	private byte[] salt;
 	private byte[] password;
 	private LibraryModel userLibrary;
 	
-	public User(String username, String password) throws Exception {
+	public User(String username, String password) {
 		this.username = username;
 		this.salt = createRandSalt();
-		this.password = create_SHA_2Hash(salt, password);
+		try {
+			this.password = create_SHA_2Hash(salt, password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.userLibrary = new LibraryModel();
 	}
 	
@@ -40,7 +46,7 @@ public class User {
 	 * This method encrypts the password using the salt that is created for the user
 	 * and the string password that is inputed. 
 	 * */
-	public static byte[] create_SHA_2Hash(byte[] salt, String password) throws Exception{
+	public static byte[] create_SHA_2Hash(byte[] salt, String password) throws IOException, NoSuchAlgorithmException {
 		// creates a byteStream that makes it easy to concatenate the salt and password
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 		// add salt to byteStream
@@ -54,7 +60,6 @@ public class User {
 		// returns the value after the hash
 		return messageDigest.digest(valueToHash);
 	}
-	
 	
 	public LibraryModel getUserLibrary() {
 		return userLibrary;
