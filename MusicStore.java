@@ -37,7 +37,7 @@ public class MusicStore {
 	public Song getSong(String name, String artist) {
 		for (Album a : musicStore.values()) {
 			for (Song s : a.getSongs()) {
-				if (s.getName().equals(name) && s.getArtist().equals(artist)) {
+				if (s.getName().equalsIgnoreCase(name) && s.getArtist().equalsIgnoreCase(artist)) {
 					return s;
 				}
 			}
@@ -47,7 +47,7 @@ public class MusicStore {
 	
 	public Album getAlbum(String name, String artist) {
 		for (Album a : musicStore.values()) {
-			if (a.getTitle().equals(name) && a.getArtist().equals(artist)) {
+			if (a.getTitle().equalsIgnoreCase(name) && a.getArtist().equalsIgnoreCase(artist)) {
 				return a;
 			}
 		}
@@ -57,7 +57,7 @@ public class MusicStore {
 	public Album getSongAlbum(String name, String artist) {
 		for (Album a : musicStore.values()) {
 			for (Song s : a.getSongs()) {
-				if (s.getName().equals(name) && s.getArtist().equals(artist)) {
+				if (s.getName().equalsIgnoreCase(name) && s.getArtist().equalsIgnoreCase(artist)) {
 					return a;
 				}
 			}
@@ -72,7 +72,7 @@ public class MusicStore {
 			// sets every album to an arrayList of all its songs
 			for (Song s : a.getSongs()) {
 				// if name equals song add it to str
-				if (s.getName().equals(title)) str += s.toString();
+				if (s.getName().equalsIgnoreCase(title)) str += s.toString();
 			}
 		}
 		// if it doesn't find any song called title then return error message
@@ -87,7 +87,7 @@ public class MusicStore {
 			// sets every album to an arrayList of all its songs
 			for (Song s : a.getSongs()) {
 				// if artist equals song's artist add it to str
-				if (s.getArtist().equals(artist)) str += s.toString();
+				if (s.getArtist().equalsIgnoreCase(artist)) str += s.toString();
 			}
 		}
 		// if it doesn't find any song by artist then return error message
@@ -97,11 +97,11 @@ public class MusicStore {
 	
 	// search by album title
 	public String getAlbumTitle(String title) {
-		if (!musicStore.containsKey(title)) return "Album Not Found";
+		if (!musicStore.containsKey(title.toLowerCase())) return "Album Not Found";
 		String str = "";
 		for (Album a : musicStore.values()) {
 			// if album title equals title add album to str
-			if (a.getTitle().equals(title)) str += a.toString();
+			if (a.getTitle().equalsIgnoreCase(title)) str += a.toString();
 		}
 		// if it doesn't find any album called title then return error message
 		return str;
@@ -112,7 +112,7 @@ public class MusicStore {
 		String str = "";
 		for (Album a : musicStore.values()) {
 			// if album's artist equals artist add album to str
-			if (a.getArtist().equals(artist)) str += a.toString();
+			if (a.getArtist().equalsIgnoreCase(artist)) str += a.toString();
 		}
 		// if it doesn't find any album by artist then return error message
 		if (str.length() == 0) return "Album Not Found";
